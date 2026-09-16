@@ -29,6 +29,40 @@
             color: #f39c12;
             margin-bottom: 20px;
         }
+        .auth-box {
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid #444;
+        }
+        .auth-box input {
+            width: 80%;
+            max-width: 300px;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #555;
+            background: #222;
+            color: #fff;
+            text-align: center;
+        }
+        .auth-box button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-login { background-color: #2980b9; color: white; }
+        .btn-signup { background-color: #8e44ad; color: white; }
+        .btn-logout { background-color: #e74c3c; color: white; display: none; margin: 10px auto; }
+        .user-status {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #2ecc71;
+        }
         .section-title {
             color: #e67e22;
             margin-top: 30px;
@@ -52,20 +86,27 @@
             font-weight: bold;
             transition: background 0.3s;
         }
-        .btn:hover {
-            background-color: #219150;
-        }
-        .btn-sell {
-            background-color: #c0392b;
-        }
-        .btn-sell:hover {
-            background-color: #a93226;
-        }
+        .btn:hover { background-color: #219150; }
+        .btn-sell { background-color: #c0392b; }
+        .btn-sell:hover { background-color: #a93226; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Okara Aele×MI Pubg Hub</h1>
+
+        <!-- Account Auth Section -->
+        <div class="auth-box">
+            <h2 style="color: #3498db; margin-bottom: 15px;">Account Login</h2>
+            <div id="auth-form">
+                <input type="email" id="email" placeholder="Email"><br>
+                <input type="password" id="password" placeholder="Password"><br>
+                <button class="auth-box button btn-login" id="btn-login-action">Login</button>
+                <button class="auth-box button btn-signup" id="btn-signup-action">Sign Up</button>
+            </div>
+            <p id="user-status" class="user-status"></p>
+            <button id="btn-logout" class="auth-box button btn-logout">Logout</button>
+        </div>
 
         <h2 class="section-title">PUBG Mobile Accounts</h2>
         <div class="btn-group">
@@ -89,6 +130,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyC8zgZaUoB9K1h_Ocr-Z0DzNsAfVYF9MGA",
@@ -102,6 +144,45 @@
 
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const btnLogin = document.getElementById('btn-login-action');
+        const btnSignUp = document.getElementById('btn-signup-action');
+        const btnLogout = document.getElementById('btn-logout');
+        const authForm = document.getElementById('auth-form');
+        const userStatus = document.getElementById('user-status');
+
+        btnSignUp.addEventListener('click', () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            createUserWithEmailAndPassword(auth, email, password)
+                .catch(error => alert(error.message));
+        });
+
+        btnLogin.addEventListener('click', () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            signInWithEmailAndPassword(auth, email, password)
+                .catch(error => alert(error.message));
+        });
+
+        btnLogout.addEventListener('click', () => {
+            signOut(auth);
+        });
+
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                authForm.style.display = 'none';
+                userStatus.textContent = "Logged in as: " + user.email;
+                btnLogout.style.display = 'block';
+            } else {
+                authForm.style.display = 'block';
+                userStatus.textContent = '';
+                btnLogout.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
