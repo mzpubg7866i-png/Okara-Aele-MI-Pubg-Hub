@@ -1,236 +1,180 @@
-<!DOCTYPE html>
-<html lang="ur">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Okara Aele×MI Pubg Hub</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-        }
+import React, { useState } from 'react';
+import { Bell, User, Plus, Filter, MessageSquare, Shield, ShoppingBag, Layers } from 'lucide-react';
 
-        /* Navbar Header */
-        .navbar {
-            background-color: #2a2a2a;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+export default function MarketplaceUI() {
+  const [activeTab, setActiveTab] = useState('All');
 
-        .navbar h1 {
-            color: #f39c12;
-            margin: 0;
-            font-size: 20px;
-        }
+  const listings = [
+    {
+      id: '#38C807D6',
+      category: 'ITEMS',
+      title: 'Rs-1k • Wallet Topup',
+      subtitle: 'TopUp app wallet cash charges 1%',
+      seller: 'OKARA AELE × OWNER',
+      price: 'Rs 1,010',
+      stock: '150 left',
+      badges: ['Top Rated Seller', 'App Cash exchange', 'Most Trusted', 'Best Seller']
+    },
+    {
+      id: '#49D908E7',
+      category: 'POPULARITY',
+      title: '100m to 1Billion Popularity',
+      subtitle: 'Fast instant delivery 24/7',
+      seller: 'SULTAN BAZAAR',
+      price: 'Rs 1,000',
+      stock: '1000000000 left',
+      badges: ['Verified Seller', 'Instant Delivery']
+    }
+  ];
 
-        /* Three Dots Button */
-        .menu-btn {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 0 10px;
-        }
+  return (
+    <div className="bg-[#0b0a1a] min-h-screen text-white font-sans max-w-md mx-auto pb-20">
+      
+      {/* Top Header */}
+      <header className="flex justify-between items-center p-4 border-b border-purple-900/30">
+        <div className="flex items-center space-x-2">
+          <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center font-bold">👑</div>
+          <div>
+            <h1 className="font-bold text-lg leading-none">Okara Aele × MI PUBG Hub</h1>
+            <span className="text-[10px] text-gray-400 tracking-wider">BUY • SELL • CONNECT • SAFE</span>
+          </div>
+        </div>
+        <div className="flex items-center space-x-3">
+          <div className="relative">
+            <Bell size={20} className="text-gray-300" />
+            <span className="absolute -top-1 -right-1 bg-red-500 text-xs text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">1</span>
+          </div>
+          <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center border border-purple-500/50">
+            <User size={18} className="text-purple-300" />
+          </div>
+        </div>
+      </header>
 
-        /* Side Navigation Drawer */
-        .sidebar {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            background-color: #222222;
-            overflow-x: hidden;
-            transition: 0.3s;
-            padding-top: 20px;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-        }
+      {/* Balance Section */}
+      <div className="flex justify-between items-center p-4">
+        <div>
+          <p className="text-xs text-gray-400">Total Balance (PKR)</p>
+          <h2 className="text-2xl font-bold">Rs 0</h2>
+        </div>
+        <button className="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center space-x-1 shadow-lg shadow-indigo-600/30">
+          <Plus size={16} />
+          <span>Add Funds</span>
+        </button>
+      </div>
 
-        /* Profile Section in Menu */
-        .profile-section {
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #333;
-        }
+      {/* Quick Action Buttons */}
+      <div className="px-4 space-y-2 mb-4">
+        <div className="flex space-x-2">
+          <button className="flex-1 bg-[#16142e] border border-purple-900/40 rounded-xl p-2.5 text-xs font-medium flex items-center justify-center space-x-2">
+            <Bell size={14} />
+            <span>Alert Me</span>
+          </button>
+          <div className="flex-1 bg-[#16142e] border border-purple-900/40 rounded-xl p-1 flex items-center justify-between px-3">
+            <span className="w-4 h-4 bg-white rounded-full"></span>
+            <span className="text-xs text-gray-400">Online</span>
+          </div>
+        </div>
 
-        .profile-img {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background-color: #f39c12;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 10px;
-            font-size: 30px;
-            color: #1a1a1a;
-            font-weight: bold;
-        }
+        <div className="flex space-x-2">
+          <button className="flex-[3] bg-[#16142e] border border-purple-900/40 rounded-xl p-2.5 text-xs font-medium flex items-center justify-center space-x-2">
+            <span>✨ App Cash exchanges</span>
+          </button>
+          <button className="flex-1 bg-[#16142e] border border-purple-900/40 rounded-xl p-2.5 text-xs flex items-center justify-center">
+            <Filter size={14} />
+            <span className="ml-1">Filters</span>
+          </button>
+        </div>
 
-        .profile-name {
-            font-size: 18px;
-            font-weight: bold;
-            color: #ffffff;
-            margin: 5px 0 2px;
-        }
+        <button className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2 shadow-lg shadow-indigo-600/20">
+          <Plus size={16} />
+          <span>Post Listing</span>
+        </button>
+      </div>
 
-        .profile-email {
-            font-size: 12px;
-            color: #aaaaaa;
-            margin: 0;
-        }
+      {/* Categories Horizontal Scroll */}
+      <div className="flex space-x-2 px-4 overflow-x-auto no-scrollbar py-2">
+        {['All', 'Rank Push', 'UC', 'Popularity'].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`px-5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+              activeTab === tab
+                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/40'
+                : 'bg-[#16142e] text-gray-400 border border-purple-900/30'
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
 
-        /* Menu Links */
-        .sidebar a {
-            padding: 12px 25px;
-            text-decoration: none;
-            font-size: 15px;
-            color: #dddddd;
-            display: block;
-            transition: 0.2s;
-            border-bottom: 1px solid #2a2a2a;
-        }
+      {/* Listings Count */}
+      <div className="px-4 py-3 text-xs text-gray-400">
+        470 listings
+      </div>
 
-        .sidebar a:hover {
-            background-color: #f39c12;
-            color: #1a1a1a;
-        }
+      {/* Listing Cards */}
+      <div className="px-4 space-y-3">
+        {listings.map((item) => (
+          <div key={item.id} className="bg-[#121026] border border-purple-900/40 rounded-2xl p-4 relative">
+            <div className="flex justify-between items-start mb-2">
+              <div>
+                <span className="text-[10px] text-gray-500 uppercase tracking-wide font-bold">{item.category}</span>
+                <h3 className="font-bold text-sm text-white">{item.title}</h3>
+                <p className="text-[10px] text-gray-400 font-mono">{item.id}</p>
+              </div>
+              <div className="text-right">
+                <span className="font-bold text-base text-white">{item.price}</span>
+                <p className="text-[10px] text-gray-400">{item.stock}</p>
+              </div>
+            </div>
 
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 28px;
-            color: #aaa;
-            cursor: pointer;
-        }
+            <p className="text-xs text-gray-400 mb-3">{item.subtitle}</p>
 
-        /* Main Container */
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #2a2a2a;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            text-align: center;
-        }
+            <div className="flex items-center space-x-1 text-xs text-indigo-400 font-semibold mb-3">
+              <span>👑 {item.seller}</span>
+            </div>
 
-        .section {
-            margin: 25px 0;
-            padding: 15px;
-            background: #333;
-            border-radius: 8px;
-        }
+            {/* Badges */}
+            <div className="flex flex-wrap gap-1.5 mb-4">
+              {item.badges.map((badge, idx) => (
+                <span key={idx} className="bg-yellow-500/10 text-yellow-500 text-[10px] px-2 py-0.5 rounded-md border border-yellow-500/20">
+                  🏆 {badge}
+                </span>
+              ))}
+            </div>
 
-        .section h2 {
-            margin-top: 0;
-            color: #f39c12;
-        }
+            <button className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded-xl text-xs font-bold transition">
+              Buy
+            </button>
+          </div>
+        ))}
+      </div>
 
-        .btn {
-            display: inline-block;
-            margin: 5px;
-            padding: 10px 20px;
-            background-color: #f39c12;
-            color: #1a1a1a;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-        }
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-[#0b0a1a] border-t border-purple-900/40 py-2 px-6 flex justify-between items-center text-xs text-gray-400">
+        <div className="flex flex-col items-center text-indigo-500">
+          <ShoppingBag size={18} />
+          <span className="text-[10px] mt-1">Market</span>
+        </div>
+        <div className="flex flex-col items-center">
+          <MessageSquare size={18} />
+          <span className="text-[10px] mt-1">Chat</span>
+        </div>
+        <div className="flex flex-col items-center">
+          <Shield size={18} />
+          <span className="text-[10px] mt-1">DVA</span>
+        </div>
+        <div className="flex flex-col items-center">
+          <Layers size={18} />
+          <span className="text-[10px] mt-1">Orders</span>
+        </div>
+        <div className="flex flex-col items-center">
+          <User size={18} />
+          <span className="text-[10px] mt-1">Me</span>
+        </div>
+      </div>
 
-        /* Overlay */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 999;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Header / Navbar -->
-    <div class="navbar">
-        <button class="menu-btn" onclick="openNav()">&#9776;</button>
-        <h1>Okara Aele×MI Pubg Hub</h1>
-        <div></div>
     </div>
-
-    <!-- Side Navigation Menu -->
-    <div id="mySidebar" class="sidebar">
-        <span class="close-btn" onclick="closeNav()">&times;</span>
-        
-        <!-- Profile Header -->
-        <div class="profile-section">
-            <div class="profile-img">U</div>
-            <p class="profile-name">User Profile</p>
-            <p class="profile-email">user@example.com</p>
-        </div>
-
-        <!-- Menu Links -->
-        <a href="#accounts">PUBG Mobile Accounts</a>
-        <a href="#uc">Top-up UC</a>
-        <a href="#popularity">Popularity</a>
-        <a href="#all-items">All PUBG Items</a>
-        <a href="#settings">Settings</a>
-        <a href="#logout" style="color: #e74c3c;">Logout</a>
-    </div>
-
-    <div id="overlay" class="overlay" onclick="closeNav()"></div>
-
-    <!-- Main Content -->
-    <div class="container">
-        <p>Pubg Mobile account, Uc, Popularity and All Pubg related items</p>
-
-        <div id="accounts" class="section">
-            <h2>PUBG Mobile Accounts</h2>
-            <a href="#" class="btn">Buy Account</a>
-            <a href="#" class="btn">Sell Account</a>
-        </div>
-
-        <div id="uc" class="section">
-            <h2>Top-up UC</h2>
-            <a href="#" class="btn">Buy UC</a>
-        </div>
-
-        <div id="popularity" class="section">
-            <h2>Popularity</h2>
-            <a href="#" class="btn">Buy Popularity</a>
-        </div>
-
-        <div id="all-items" class="section">
-            <h2>All PUBG Items</h2>
-            <a href="#" class="btn">View All Items</a>
-        </div>
-    </div>
-
-    <script>
-        function openNav() {
-            document.getElementById("mySidebar").style.width = "280px";
-            document.getElementById("overlay").style.display = "block";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidebar").style.width = "0";
-            document.getElementById("overlay").style.display = "none";
-        }
-    </script>
-
-</body>
-</html>
+  );
+}
