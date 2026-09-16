@@ -3,174 +3,492 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Okara Aele x MI PUBG Hub</title>
+    <title>Raja Bazaar UI</title>
     <style>
-        :root {
-            --bg-dark: #0f141a;
-            --card-bg: #1a232e;
-            --accent-gold: #ffb703;
-            --accent-violet: #8a2be2;
-            --text-light: #f1f5f9;
-            --border-color: #2a3744;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            margin: 0;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(135deg, #1f1c2c, #928dab);
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
-        }
-
-        .header h1 {
-            margin: 0;
-            color: var(--accent-gold);
-            font-size: 2.2rem;
-            text-shadow: 0 0 10px rgba(255, 183, 3, 0.5);
-        }
-
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 20px;
-            max-width: 1200px;
+            background-color: #0f0c20;
+            color: #ffffff;
+            padding: 16px;
+            padding-bottom: 70px;
+            max-width: 480px;
             margin: 0 auto;
         }
 
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .card h2 {
-            margin-top: 0;
-            color: var(--accent-gold);
-            border-bottom: 2px solid var(--accent-violet);
-            padding-bottom: 8px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid var(--border-color);
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            box-sizing: border-box;
-        }
-
-        .btn-submit {
-            background: linear-gradient(45deg, var(--accent-violet), #6a0dad);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            transition: 0.3s;
-        }
-
-        .btn-submit:hover {
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.7);
-        }
-
-        .post-item {
-            background-color: var(--bg-dark);
-            border-left: 4px solid var(--accent-gold);
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 4px;
+        /* Header */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 12px 0;
         }
 
-        .post-details {
-            font-size: 1.1rem;
-        }
-
-        .post-price {
-            color: var(--accent-gold);
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 18px;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .sub-logo {
+            font-size: 9px;
+            color: #a0a0b0;
+            letter-spacing: 1px;
+        }
+
+        /* Side Navigation Drawer */
+        .menu-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            background-color: #15102a;
+            border-right: 1px solid #251e4b;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.7);
+        }
+
+        .profile-section {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #251e4b;
+        }
+
+        .profile-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 24px;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .profile-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .profile-email {
+            font-size: 11px;
+            color: #a0a0b0;
+        }
+
+        .sidebar a {
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 14px;
+            color: #dddddd;
+            display: block;
+            transition: 0.2s;
+            border-bottom: 1px solid #1f183a;
+        }
+
+        .sidebar a:hover {
+            background-color: #6c5ce7;
+            color: #ffffff;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+        }
+
+        /* Balance Card */
+        .balance-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .balance-title {
+            font-size: 12px;
+            color: #a0a0b0;
+            margin-bottom: 4px;
+        }
+
+        .balance-amount {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .btn-purple {
+            background-color: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Toggle & Actions */
+        .action-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .btn-dark {
+            background-color: #1a153a;
+            color: white;
+            border: 1px solid #2d265c;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .toggle-btn {
+            background-color: #1a153a;
+            border: 1px solid #2d265c;
+            border-radius: 20px;
+            padding: 4px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .toggle-dot {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .full-width-btn {
+            width: 100%;
+            margin: 8px 0 20px 0;
+        }
+
+        /* Categories Bar */
+        .categories {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .chip {
+            background-color: #1a153a;
+            border: 1px solid #2d265c;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .chip.active {
+            background-color: #6c5ce7;
+            border-color: #6c5ce7;
+        }
+
+        /* Listing Section */
+        .listings-count {
+            font-size: 12px;
+            color: #a0a0b0;
+            margin-bottom: 12px;
+        }
+
+        .card {
+            background-color: #15102a;
+            border: 1px solid #251e4b;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #1a153a;
+            border: 1px solid #2d265c;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .card-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: right;
+        }
+
+        .card-sub {
+            font-size: 11px;
+            color: #a0a0b0;
+            text-align: right;
+        }
+
+        .card-desc {
+            font-size: 11px;
+            color: #8e8ea0;
+            margin: 8px 0;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .badge {
+            background-color: #2b220a;
+            color: #f1c40f;
+            border: 1px solid #544312;
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .badge-alt {
+            background-color: #1f1b3a;
+            color: #d1c4e9;
+            border: 1px solid #362f63;
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #0f0c20;
+            border-top: 1px solid #251e4b;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            max-width: 480px;
+            margin: 0 auto;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: #a0a0b0;
+            gap: 4px;
+        }
+
+        .nav-item.active {
+            color: #6c5ce7;
         }
     </style>
 </head>
 <body>
 
+    <!-- Top Header -->
     <div class="header">
-        <h1>Okara Aele x MI PUBG Hub</h1>
-    </div>
-
-    <div class="container">
-        <!-- User Post Form Section -->
-        <div class="card">
-            <h2>Add New Post</h2>
-            <form id="ucPostForm">
-                <div class="form-group">
-                    <label for="category">Category</label>
-                    <select id="category" required>
-                        <option value="UC Top-Up">UC Top-Up</option>
-                        <option value="PUBG Account">PUBG Account</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="ucAmount">UC Amount</label>
-                    <input type="number" id="ucAmount" placeholder="e.g. 660" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="price">Your Price (PKR / USD)</label>
-                    <input type="text" id="price" placeholder="e.g. 1500 PKR" required>
-                </div>
-
-                <button type="submit" class="btn-submit">Post Listing</button>
-            </form>
-        </div>
-
-        <!-- Dynamic Feed Section -->
-        <div class="card">
-            <h2>Live Listings</h2>
-            <div id="listingsFeed">
-                <div class="post-item">
-                    <div class="post-details">
-                        <strong>UC Top-Up:</strong> 600 + 60 UC
-                    </div>
-                    <div class="post-price">1,800 PKR</div>
-                </div>
-                <div class="post-item">
-                    <div class="post-details">
-                        <strong>UC Top-Up:</strong> 3000 + 850 UC
-                    </div>
-                    <div class="post-price">8,500 PKR</div>
-                </div>
+        <button class="menu-btn" onclick="openNav()">&#9776;</button>
+        <div class="logo">
+            <div class="logo-icon">👑</div>
+            <div>
+                <div>Raja Bazaar</div>
+                <div class="sub-logo">BUY • SELL • CONNECT • SAFE</div>
             </div>
         </div>
+        <div style="width: 24px;"></div> <!-- Spacer for balance -->
     </div>
+
+    <!-- Side Navigation Menu -->
+    <div id="mySidebar" class="sidebar">
+        <span class="close-btn" onclick="closeNav()">&times;</span>
+        
+        <!-- Profile Header -->
+        <div class="profile-section">
+            <div class="profile-img">👑</div>
+            <div class="profile-name">User Profile</div>
+            <div class="profile-email">user@rajabazaar.com</div>
+        </div>
+
+        <!-- Menu Links -->
+        <a href="#profile">👤 Profile</a>
+        <a href="#pubg-accounts">🎮 PUBG Mobile Accounts</a>
+        <a href="#topup-uc">🪙 Top-up UC</a>
+        <a href="#popularity">📈 Popularity</a>
+        <a href="#all-items">📦 All PUBG Items</a>
+        <a href="#settings">⚙️ Settings</a>
+        <a href="#logout" style="color: #ff5252;">🚪 Logout</a>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="closeNav()"></div>
+
+    <!-- Balance Section -->
+    <div class="balance-section">
+        <div>
+            <div class="balance-title">Total Balance (PKR)</div>
+            <div class="balance-amount">Rs 0</div>
+        </div>
+        <button class="btn-purple">+ Add Funds</button>
+    </div>
+
+    <!-- Controls & Actions -->
+    <div class="action-row">
+        <button class="btn-dark">🔔 Alert Me</button>
+        <div class="toggle-btn">
+            <div class="toggle-dot"></div>
+            <span>Online</span>
+        </div>
+    </div>
+
+    <div class="action-row">
+        <button class="btn-dark">✨ App Cash exchanges</button>
+        <button class="btn-dark">⚙️ Filters</button>
+    </div>
+
+    <button class="btn-purple full-width-btn">+ Post Listing</button>
+
+    <!-- Categories -->
+    <div class="categories">
+        <div class="chip active">All</div>
+        <div class="chip">📦 Rank Push</div>
+        <div class="chip">🪙 UC</div>
+        <div class="chip">📈 Popularity</div>
+    </div>
+
+    <div class="listings-count">470 listings</div>
+
+    <!-- Product Card -->
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <div class="card-icon">📦</div>
+                <div style="font-size: 10px; color: #a0a0b0;">ITEMS</div>
+                <div class="card-title">Rs-1k ▪ Wallet Topup</div>
+                <div style="font-size: 10px; color: #6c5ce7;">#38C807D6</div>
+            </div>
+            <div>
+                <div class="card-price">Rs 1,010</div>
+                <div class="card-sub">150 left</div>
+            </div>
+        </div>
+
+        <div class="card-desc">TopUp Raja bazaar app wallet cash charges 1%</div>
+        <div style="font-size: 11px; margin-bottom: 8px;">👑 RAJA BAZAAR OWNER</div>
+
+        <div class="badges">
+            <span class="badge">🏆 Top Rated Seller</span>
+            <span class="badge-alt">✨ App Cash exchange</span>
+            <span class="badge-alt">🛡️ Most Trusted</span>
+            <span class="badge">👑 Best Seller</span>
+        </div>
+        
+        <button class="btn-purple" style="width: 100%; margin-top: 12px;">Buy</button>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <div>🏪</div>
+            <div>Market</div>
+        </div>
+        <div class="nav-item">
+            <div>💬</div>
+            <div>Chat</div>
+        </div>
+        <div class="nav-item">
+            <div>🛡️</div>
+            <div>DVA</div>
+        </div>
+        <div class="nav-item">
+            <div>📊</div>
+            <div>Orders</div>
+        </div>
+        <div class="nav-item">
+            <div>👤</div>
+            <div>Me</div>
+        </div>
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "280px";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("overlay").style.display = "none";
+        }
+    </script>
 
 </body>
 </html>
