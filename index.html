@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Okara Aele×MI Pubg Hub - User Profile & Auth</title>
+    <title>Okara Aele×MI Pubg Hub</title>
     <style>
         * {
             box-sizing: border-box;
@@ -14,67 +14,140 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0f0f12;
             color: #ffffff;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+            background: #1a1a24;
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 1px solid #2a2a3a;
+        }
+        .header h1 {
+            color: #f39c12;
+            font-size: 1.5rem;
+        }
+        .user-nav-btn {
+            background-color: #f39c12;
+            color: #000;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #1a1a24;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            border: 1px solid #2a2a3a;
+        }
+        .section-title {
+            color: #e67e22;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+        .btn-group {
             display: flex;
             justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .btn-service {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: #27ae60;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-service:hover {
+            background-color: #219150;
+        }
+        .btn-sell {
+            background-color: #c0392b;
+        }
+        .btn-sell:hover {
+            background-color: #a93226;
+        }
+        /* Modal Popup Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            z-index: 1000;
             padding: 20px;
         }
         .card {
             background: #1a1a24;
             padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-            border: 1px solid #2a2a3a;
+            border: 1px solid #333348;
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
             text-align: center;
+            position: relative;
         }
-        h2 {
-            color: #f39c12;
-            margin-bottom: 20px;
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            color: #aaa;
+            font-size: 24px;
+            cursor: pointer;
         }
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-align: right;
         }
         .input-group label {
             display: block;
             margin-bottom: 5px;
-            color: #cccccc;
-            font-size: 0.9rem;
+            color: #ccc;
+            font-size: 0.85rem;
         }
         .input-group input {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 6px;
             border: 1px solid #333348;
             background-color: #252533;
             color: #fff;
-            font-size: 1rem;
             outline: none;
         }
-        .input-group input:focus {
-            border-color: #f39c12;
-        }
-        .btn {
+        .form-btn {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background-color: #f39c12;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             color: #000;
-            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
         }
-        .btn:hover {
-            background-color: #e67e22;
-        }
         .toggle-text {
-            margin-top: 15px;
-            font-size: 0.9rem;
+            margin-top: 12px;
+            font-size: 0.85rem;
             color: #aaa;
         }
         .toggle-text span {
@@ -82,114 +155,172 @@
             cursor: pointer;
             font-weight: bold;
         }
-        /* Profile Section */
         .profile-avatar {
-            width: 90px;
-            height: 90px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             background-color: #f39c12;
             color: #000;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: bold;
-            margin: 0 auto 15px;
+            margin: 0 auto 10px;
         }
         .profile-info {
             background: #252533;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 8px;
             margin-bottom: 15px;
             text-align: right;
         }
         .profile-info p {
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-            color: #ddd;
-        }
-        .profile-info strong {
-            color: #f39c12;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
         }
         .hidden {
-            display: none;
+            display: none !important;
         }
     </style>
 </head>
 <body>
 
-    <!-- SIGNUP FORM -->
-    <div id="signup-box" class="card">
-        <h2>اکاؤنٹ بنائیں۔ (Sign Up)</h2>
-        <form id="signup-form">
-            <div class="input-group">
-                <label>پورا نام (Full Name)</label>
-                <input type="text" id="signup-name" placeholder="اپنا نام درج کریں" required>
-            </div>
-            <div class="input-group">
-                <label>موبائل نمبر (Mobile Number)</label>
-                <input type="tel" id="signup-phone" placeholder="03001234567" required>
-            </div>
-            <div class="input-group">
-                <label>ای میل (Email Address)</label>
-                <input type="email" id="signup-email" placeholder="example@gmail.com" required>
-            </div>
-            <div class="input-group">
-                <label>پاس ورڈ (Password)</label>
-                <input type="password" id="signup-password" placeholder="پاس ورڈ بنائیں" required>
-            </div>
-            <button type="submit" class="btn">سائن اپ کریں</button>
-        </form>
-        <p class="toggle-text">پہلے سے اکاؤنٹ موجود ہے؟ <span onclick="showLogin()">لاگ ان کریں</span></p>
+    <!-- Header Navbar -->
+    <div class="header">
+        <h1>Okara Aele×MI Pubg Hub</h1>
+        <button id="nav-auth-btn" class="user-nav-btn" onclick="openAuthModal()">لاگ ان / سائن اپ</button>
     </div>
 
-    <!-- LOGIN FORM -->
-    <div id="login-box" class="card hidden">
-        <h2>لاگ ان کریں (Login)</h2>
-        <form id="login-form">
-            <div class="input-group">
-                <label>ای میل (Email Address)</label>
-                <input type="email" id="login-email" placeholder="example@gmail.com" required>
-            </div>
-            <div class="input-group">
-                <label>پاس ورڈ (Password)</label>
-                <input type="password" id="login-password" placeholder="پاس ورڈ درج کریں" required>
-            </div>
-            <button type="submit" class="btn">لاگ ان</button>
-        </form>
-        <p class="toggle-text">نیا اکاؤنٹ بنانا چاہتے ہیں؟ <span onclick="showSignup()">سائن اپ کریں</span></p>
-    </div>
-
-    <!-- PROFILE SECTION -->
-    <div id="profile-box" class="card hidden">
-        <div class="profile-avatar" id="avatar-initial">U</div>
-        <h2 id="profile-display-name">صارف کا نام</h2>
-        
-        <div class="profile-info">
-            <p><strong>نام:</strong> <span id="info-name">-</span></p>
-            <p><strong>موبائل نمبر:</strong> <span id="info-phone">-</span></p>
-            <p><strong>ای میل:</strong> <span id="info-email">-</span></p>
+    <!-- Main Content Area -->
+    <div class="container">
+        <h2 class="section-title">PUBG Mobile Accounts</h2>
+        <div class="btn-group">
+            <a href="https://wa.me/923484742060?text=Hi,%20I%20want%20to%20Buy%20a%20PUBG%20Account" class="btn-service" target="_blank">Buy Account</a>
+            <a href="https://wa.me/923484742060?text=Hi,%20I%20want%20to%20Sell%20my%20PUBG%20Account" class="btn-service btn-sell" target="_blank">Sell Account</a>
         </div>
 
-        <button class="btn" style="background-color: #e74c3c; color: white;" onclick="logout()">لاگ آؤٹ کریں</button>
+        <h2 class="section-title">UC Top-Up</h2>
+        <div class="btn-group">
+            <a href="https://wa.me/923484742060?text=Hi,%20I%20want%20to%20Buy%20UC" class="btn-service" target="_blank">Buy UC</a>
+            <a href="https://wa.me/923484742060?text=Hi,%20I%20want%20to%20Sell%20UC" class="btn-service btn-sell" target="_blank">Sell UC</a>
+        </div>
+
+        <h2 class="section-title">PUBG Popularity</h2>
+        <div class="btn-group">
+            <a href="https://wa.me/923484742060?text=Hi,%20I%20want%20to%20Buy%20Popularity" class="btn-service" target="_blank">Buy Popularity</a>
+            <a href="https://wa.me/923484742060?text=Hi,%20I%20want%20to%20Sell%20Popularity" class="btn-service btn-sell" target="_blank">Sell Popularity</a>
+        </div>
     </div>
 
+    <!-- Auth Modal Popup -->
+    <div id="auth-modal" class="modal">
+        
+        <!-- Signup Form -->
+        <div id="signup-box" class="card">
+            <span class="close-btn" onclick="closeAuthModal()">&times;</span>
+            <h3 style="color: #f39c12; margin-bottom: 15px;">نیا اکاؤنٹ بنائیں</h3>
+            <form id="signup-form">
+                <div class="input-group">
+                    <label>پورا نام</label>
+                    <input type="text" id="signup-name" required>
+                </div>
+                <div class="input-group">
+                    <label>موبائل نمبر</label>
+                    <input type="tel" id="signup-phone" required>
+                </div>
+                <div class="input-group">
+                    <label>ای میل</label>
+                    <input type="email" id="signup-email" required>
+                </div>
+                <div class="input-group">
+                    <label>پاس ورڈ</label>
+                    <input type="password" id="signup-password" required>
+                </div>
+                <button type="submit" class="form-btn">سائن اپ</button>
+            </form>
+            <p class="toggle-text">پہلے سے اکاؤنٹ ہے؟ <span onclick="showLogin()">لاگ ان کریں</span></p>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login-box" class="card hidden">
+            <span class="close-btn" onclick="closeAuthModal()">&times;</span>
+            <h3 style="color: #f39c12; margin-bottom: 15px;">لاگ ان کریں</h3>
+            <form id="login-form">
+                <div class="input-group">
+                    <label>ای میل</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="input-group">
+                    <label>پاس ورڈ</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="form-btn">لاگ ان</button>
+            </form>
+            <p class="toggle-text">اکاؤنٹ نہیں ہے؟ <span onclick="showSignup()">سائن اپ کریں</span></p>
+        </div>
+
+        <!-- Profile Box -->
+        <div id="profile-box" class="card hidden">
+            <span class="close-btn" onclick="closeAuthModal()">&times;</span>
+            <div class="profile-avatar" id="avatar-initial">U</div>
+            <h3 id="profile-display-name" style="margin-bottom: 15px; color: #f39c12;">صارف</h3>
+            <div class="profile-info">
+                <p><strong>نام:</strong> <span id="info-name">-</span></p>
+                <p><strong>نمبر:</strong> <span id="info-phone">-</span></p>
+                <p><strong>ای میل:</strong> <span id="info-email">-</span></p>
+            </div>
+            <button class="form-btn" style="background-color: #e74c3c; color: white;" onclick="logout()">لاگ آؤٹ</button>
+        </div>
+
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC8zgZaUoB9K1h_Ocr-Z0DzNsAfVYF9MGA",
+            authDomain: "okara-aele.firebaseapp.com",
+            projectId: "okara-aele",
+            storageBucket: "okara-aele.firebasestorage.app",
+            messagingSenderId: "679499860502",
+            appId: "1:679499860502:web:548fb2ac116edb4a83c337",
+            measurementId: "G-WJVKVW7MGP"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
     <script>
+        const modal = document.getElementById('auth-modal');
         const signupBox = document.getElementById('signup-box');
         const loginBox = document.getElementById('login-box');
         const profileBox = document.getElementById('profile-box');
+        const navAuthBtn = document.getElementById('nav-auth-btn');
+
+        function openAuthModal() {
+            modal.style.display = 'flex';
+        }
+
+        function closeAuthModal() {
+            modal.style.display = 'none';
+        }
 
         function showLogin() {
             signupBox.classList.add('hidden');
+            profileBox.classList.add('hidden');
             loginBox.classList.remove('hidden');
         }
 
         function showSignup() {
             loginBox.classList.add('hidden');
+            profileBox.classList.add('hidden');
             signupBox.classList.remove('hidden');
         }
 
-        // Sign Up Event
         document.getElementById('signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const userData = {
@@ -198,13 +329,10 @@
                 email: document.getElementById('signup-email').value,
                 password: document.getElementById('signup-password').value
             };
-            
             localStorage.setItem('userAccount', JSON.stringify(userData));
-            alert('اکاؤنٹ کامیابی سے بن گیا ہے!');
-            loadProfile(userData);
+            updateProfileUI(userData);
         });
 
-        // Login Event
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const storedUser = JSON.parse(localStorage.getItem('userAccount'));
@@ -212,13 +340,13 @@
             const inputPass = document.getElementById('login-password').value;
 
             if (storedUser && storedUser.email === inputEmail && storedUser.password === inputPass) {
-                loadProfile(storedUser);
+                updateProfileUI(storedUser);
             } else {
                 alert('غلط ای میل یا پاس ورڈ!');
             }
         });
 
-        function loadProfile(user) {
+        function updateProfileUI(user) {
             signupBox.classList.add('hidden');
             loginBox.classList.add('hidden');
             profileBox.classList.remove('hidden');
@@ -228,18 +356,29 @@
             document.getElementById('info-phone').innerText = user.phone;
             document.getElementById('info-email').innerText = user.email;
             document.getElementById('avatar-initial').innerText = user.name.charAt(0).toUpperCase();
+
+            navAuthBtn.innerText = user.name;
+            navAuthBtn.onclick = function() {
+                modal.style.display = 'flex';
+                signupBox.classList.add('hidden');
+                loginBox.classList.add('hidden');
+                profileBox.classList.remove('hidden');
+            };
+            closeAuthModal();
         }
 
         function logout() {
-            profileBox.classList.add('hidden');
-            loginBox.classList.remove('hidden');
+            localStorage.removeItem('userAccount');
+            navAuthBtn.innerText = 'لاگ ان / سائن اپ';
+            navAuthBtn.onclick = openAuthModal;
+            showLogin();
+            closeAuthModal();
         }
 
-        // Check active session
         window.onload = function() {
             const storedUser = JSON.parse(localStorage.getItem('userAccount'));
             if (storedUser) {
-                loadProfile(storedUser);
+                updateProfileUI(storedUser);
             }
         };
     </script>
