@@ -60,7 +60,7 @@ button{cursor:pointer}
 .modal-title{font-size:19px;font-weight:800;margin-bottom:15px}
 .close-modal{float:right;background:none;border:0;color:#aaa;font-size:23px}
 label{display:block;font-size:11px;color:#aaa;margin:11px 0 5px}
-input,select{width:100%;background:#090711;color:#fff;border:1px solid #33275c;border-radius:11px;padding:12px;outline:none}
+input,select{width:100%;background:#090711;color:#fff;border:1px solid #33275a;border-radius:11px;padding:12px;outline:none}
 input:focus,select:focus{border-color:#7650e8}
 .form-row{display:flex;gap:8px}.form-row>div{flex:1}
 .notice{font-size:11px;color:#aaa;background:#19132a;border:1px solid #302650;border-radius:10px;padding:10px;margin:12px 0}
@@ -71,8 +71,9 @@ input:focus,select:focus{border-color:#7650e8}
 .nav-item{color:#8f8a9e;font-size:10px;text-align:center}.nav-item div:first-child{font-size:17px;margin-bottom:2px}.nav-item.active{color:#9d80ff}
 .toast{position:fixed;z-index:3000;left:50%;bottom:75px;transform:translateX(-50%) translateY(20px);background:#20173a;border:1px solid #49357d;padding:10px 14px;border-radius:10px;font-size:11px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.hidden{display:none!important}
 
-/* ===== PROFILE PAGE - ADDED ===== */
+/* ONLY NEW: Profile styles */
 .profile-page{display:none;padding:5px 0 90px}
 .profile-page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .profile-page-title{font-size:21px;font-weight:800}
@@ -88,12 +89,10 @@ input:focus,select:focus{border-color:#7650e8}
 .profile-input:focus{border-color:#7650e8}
 .profile-save{width:100%;margin-top:4px;padding:12px;border:0;border-radius:12px;color:#fff;font-weight:800;background:linear-gradient(135deg,#7650e8,#5d3bc4)}
 .profile-note{margin-top:12px;padding:10px;border-radius:10px;background:#17122a;border:1px solid #2b2250;color:#918b9e;font-size:10px;line-height:1.5}
-.profile-hidden{display:none!important}
 </style>
 </head>
 <body>
 
-<div id="marketPage">
 <header class="header">
  <button class="menu-btn" onclick="openNav()">☰</button>
  <div class="logo"><div class="logo-icon">👑</div><div>Okara Aele×MI Pubg Hub<div class="sub-logo">BUY • SELL • CONNECT • SAFE</div></div></div>
@@ -191,17 +190,13 @@ input:focus,select:focus{border-color:#7650e8}
  </div>
 </div>
 
-<div id="toast" class="toast"></div>
-</div><!-- end marketPage -->
-
-<!-- ===== PROFILE PAGE ===== -->
+<!-- ONLY NEW: Profile Page -->
 <section id="profilePage" class="profile-page">
  <div class="profile-page-header">
   <button class="profile-back" onclick="showMarket()">← Back</button>
   <div class="profile-page-title">My Profile</div>
   <div style="width:58px"></div>
  </div>
-
  <div class="profile-card">
   <div class="profile-picture-wrap">
    <div id="profilePlaceholder" class="profile-placeholder">👤</div>
@@ -210,37 +205,31 @@ input:focus,select:focus{border-color:#7650e8}
     <input id="profilePhotoInput" type="file" accept="image/*" style="display:none" onchange="changeProfilePicture(event)">
    </label>
   </div>
-
   <div class="profile-field">
    <label>Profile Name</label>
    <input id="profileName" class="profile-input" type="text" placeholder="Enter your profile name">
   </div>
-
   <div class="profile-field">
    <label>Username</label>
    <input id="profileUsername" class="profile-input" type="text" placeholder="@username">
   </div>
-
   <div class="profile-field">
    <label>Mobile Number</label>
    <input id="profileMobile" class="profile-input" type="tel" placeholder="03XX XXXXXXX">
   </div>
-
   <div class="profile-field">
    <label>Email</label>
    <input id="profileEmail" class="profile-input" type="email" placeholder="example@email.com">
   </div>
-
   <button class="profile-save" onclick="saveProfile()">💾 Save Profile</button>
-
-  <div class="profile-note">
-   Profile information isi browser mein save hogi. Real online account/login system ke liye baad mein backend/database connect karna hoga.
-  </div>
+  <div class="profile-note">Profile information isi browser mein save hogi. Real online account/login system ke liye backend/database connect karna hoga.</div>
  </div>
 </section>
 
+<div id="toast" class="toast"></div>
+
 <nav class="bottom-nav">
- <div class="nav-item active" onclick="showMarket()"><div>🏪</div>Market</div>
+ <div class="nav-item active" onclick="window.scrollTo({top:0,behavior:'smooth'})"><div>🏪</div>Market</div>
  <div class="nav-item" onclick="showDeals()"><div>💬</div>Chat</div>
  <div class="nav-item" onclick="openAdmin()"><div>🛡️</div>Admin</div>
  <div class="nav-item" onclick="showDeals()"><div>📊</div>Orders</div>
@@ -248,7 +237,7 @@ input:focus,select:focus{border-color:#7650e8}
 </nav>
 
 <script>
-const KEY_LIST='okara_pubg_listings_v1', KEY_DEALS='okara_pubg_deals_v1';
+const KEY_LIST='okara_pubg_listings_v1', KEY_DEALS='okara_pubg_deals_v1', KEY_PROFILE='okara_pubg_profile_v1';
 let listings=JSON.parse(localStorage.getItem(KEY_LIST)||'null');
 let deals=JSON.parse(localStorage.getItem(KEY_DEALS)||'[]');
 let selectedListing=null, currentCategory='All';
@@ -356,4 +345,4 @@ function renderAdmin(){
   <div class="meta">Buyer: ${esc(d.buyer)}</div>
   <div class="meta">Seller: ${esc(d.seller)}</div>
   <div class="meta">Quantity: ${Number(d.qty).toLocaleString()} · Price: Rs ${Number(d.price).toLocaleString()}</div>
-  <span class="deal-st
+  <span class="deal-status">${esc(d.status)}</spa
