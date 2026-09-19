@@ -58,7 +58,7 @@ button{cursor:pointer}
 .modal.show{display:flex}
 .modal-box{width:min(480px,100%);background:#110d1d;border:1px solid #302553;border-radius:22px 22px 0 0;padding:20px;max-height:90vh;overflow:auto}
 
-/* Profile Page Full Screen View */
+/* Proper Full Page Profile View */
 .modal-box.profile-page{height:100vh;max-height:100vh;border-radius:0;border:none}
 
 .modal-title{font-size:19px;font-weight:800;margin-bottom:15px}
@@ -72,9 +72,9 @@ input:focus,select:focus{border-color:#7650e8}
 .admin-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .admin-actions button{font-size:10px;padding:7px 9px;border-radius:8px;border:1px solid #40336d;background:#211a38;color:#fff}
 
-/* Original Bottom Bar Style Retained */
+/* Original Bottom Nav Style */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:#0d0a16;border-top:1px solid #292047;display:flex;justify-content:space-around;padding:10px 0;z-index:900}
-.nav-item{color:#8f8a9e;font-size:10px;text-align:center;text-decoration:none}
+.nav-item{color:#8f8a9e;font-size:10px;text-align:center;text-decoration:none;cursor:pointer}
 .nav-item.active{color:#9d80ff}
 
 .toast{position:fixed;z-index:3000;left:50%;bottom:85px;transform:translateX(-50%) translateY(20px);background:#20173a;border:1px solid #49357d;padding:10px 14px;border-radius:10px;font-size:11px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
@@ -131,7 +131,7 @@ input:focus,select:focus{border-color:#7650e8}
 <div id="count" class="count">0 listings</div>
 <div id="listings"></div>
 
-<!-- Profile Modal Transformed into Proper Page -->
+<!-- Profile Modal Transformed into Proper Full Screen Page -->
 <div id="profileModal" class="modal">
  <div class="modal-box profile-page">
   <button class="close-modal" onclick="closeModal('profileModal')">×</button>
@@ -376,4 +376,4 @@ function renderAdmin(){
 }
 function setDeal(id,status){
  const d=deals.find(x=>x.id===id);if(!d)return;
- d.status=status;save();renderAdmin();toast('Deal status: 
+ d.status=status;save();renderAdmin();to
