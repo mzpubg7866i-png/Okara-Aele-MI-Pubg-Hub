@@ -23,7 +23,7 @@ button{cursor:pointer}
 .sidebar{position:fixed;z-index:1001;top:0;left:-290px;width:280px;height:100%;background:#110d1d;border-right:1px solid var(--line);transition:.3s;padding-top:18px;box-shadow:8px 0 30px #000}
 .sidebar.open{left:0}
 .close-btn{position:absolute;right:16px;top:10px;font-size:27px;color:#aaa}
-.profile-section{text-align:center;padding:25px 15px 18px;border-bottom:1px solid var(--line);cursor:pointer}
+.profile-section{text-align:center;padding:25px 15px 18px;border-bottom:1px solid var(--line)}
 .profile-img{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;margin:auto auto 9px;font-size:25px}
 .profile-name{font-weight:700}.profile-email{font-size:11px;color:var(--muted);margin-top:3px}
 .sidebar a{display:block;color:#ddd;text-decoration:none;padding:14px 20px;border-bottom:1px solid #1d1730;font-size:14px}
@@ -56,7 +56,6 @@ button{cursor:pointer}
 .modal{display:none;position:fixed;inset:0;z-index:2000;background:#000b;align-items:flex-end;justify-content:center}
 .modal.show{display:flex}
 .modal-box{width:min(480px,100%);background:#110d1d;border:1px solid #302553;border-radius:22px 22px 0 0;padding:20px;max-height:90vh;overflow:auto}
-.modal-box.full-page{height:100vh;max-height:100vh;border-radius:0;border:none}
 .modal-title{font-size:19px;font-weight:800;margin-bottom:15px}
 .close-modal{float:right;background:none;border:0;color:#aaa;font-size:23px}
 label{display:block;font-size:11px;color:#aaa;margin:11px 0 5px}
@@ -68,7 +67,7 @@ input:focus,select:focus{border-color:#7650e8}
 .admin-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .admin-actions button{font-size:10px;padding:7px 9px;border-radius:8px;border:1px solid #40336d;background:#211a38;color:#fff}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:linear-gradient(180deg,#0d0a16f5,#07060bf8);border-top:1px solid #292047;display:flex;justify-content:space-around;padding:9px 0 10px;z-index:900;backdrop-filter:blur(12px)}
-.nav-item{color:#8f8a9e;font-size:10px;text-align:center;cursor:pointer}.nav-item div:first-child{font-size:17px;margin-bottom:2px}.nav-item.active{color:#9d80ff}
+.nav-item{color:#8f8a9e;font-size:10px;text-align:center}.nav-item div:first-child{font-size:17px;margin-bottom:2px}.nav-item.active{color:#9d80ff}
 .toast{position:fixed;z-index:3000;left:50%;bottom:75px;transform:translateX(-50%) translateY(20px);background:#20173a;border:1px solid #49357d;padding:10px 14px;border-radius:10px;font-size:11px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .hidden{display:none!important}
@@ -84,16 +83,16 @@ input:focus,select:focus{border-color:#7650e8}
 
 <aside id="sidebar" class="sidebar">
  <button class="close-btn" onclick="closeNav()">×</button>
- <div class="profile-section" onclick="openProfile();closeNav()">
+ <div class="profile-section">
   <div class="profile-img">👑</div>
-  <div class="profile-name" id="displayProfileName">User Profile</div>
-  <div class="profile-email" id="displayProfileUsername">@username</div>
+  <div class="profile-name">User Profile</div>
+  <div class="profile-email">Marketplace User</div>
  </div>
  <a href="#" onclick="closeNav()">🏪 Market</a>
  <a href="#" onclick="openSell();closeNav()">➕ Sell / Post Listing</a>
  <a href="#" onclick="showDeals();closeNav()">📊 My Deals</a>
  <a href="#" onclick="openAdmin();closeNav()">🛡️ Admin Panel</a>
- <a href="#" onclick="openProfile();closeNav()">👤 Profile Settings</a>
+ <a href="#" onclick="toast('Settings coming soon')">⚙️ Settings</a>
 </aside>
 <div id="overlay" class="overlay" onclick="closeNav()"></div>
 
@@ -123,30 +122,6 @@ input:focus,select:focus{border-color:#7650e8}
 
 <div id="count" class="count">0 listings</div>
 <div id="listings"></div>
-
-<!-- Profile Modal (Full Page View) -->
-<div id="profileModal" class="modal">
- <div class="modal-box full-page">
-  <button class="close-modal" onclick="closeModal('profileModal')">×</button>
-  <div class="modal-title">👤 User Profile</div>
-  <div style="text-align:center;margin:20px 0;">
-    <div class="profile-img" style="width:80px;height:80px;font-size:35px;">👑</div>
-    <h3 id="profHeadName" style="margin-top:10px;">User Profile</h3>
-    <p id="profHeadUser" style="color:var(--muted);font-size:12px;">@username</p>
-  </div>
-  <label>Full Name</label>
-  <input id="profName" placeholder="Enter Full Name">
-  <label>Username</label>
-  <input id="profUsername" placeholder="Enter Username">
-  <label>Email Address</label>
-  <input id="profEmail" type="email" placeholder="Enter Email">
-  <label>Phone Number</label>
-  <input id="profPhone" type="tel" placeholder="Enter Phone Number">
-  <label>Password</label>
-  <input id="profPassword" type="password" placeholder="Enter New Password">
-  <button class="btn full" onclick="saveProfile()" style="margin-top:25px;padding:14px;">Save Profile Details</button>
- </div>
-</div>
 
 <!-- Sell Modal -->
 <div id="sellModal" class="modal">
@@ -199,18 +174,17 @@ input:focus,select:focus{border-color:#7650e8}
 <div id="toast" class="toast"></div>
 
 <nav class="bottom-nav">
- <div class="nav-item active" onclick="setActiveNav(this);window.scrollTo({top:0,behavior:'smooth'})"><div>🏪</div>Market</div>
- <div class="nav-item" onclick="setActiveNav(this);showDeals()"><div>💬</div>Chat</div>
- <div class="nav-item" onclick="setActiveNav(this);openAdmin()"><div>🛡️</div>Admin</div>
- <div class="nav-item" onclick="setActiveNav(this);showDeals()"><div>📊</div>Orders</div>
- <div class="nav-item" onclick="setActiveNav(this);openProfile()"><div>👤</div>Profile</div>
+ <div class="nav-item active" onclick="window.scrollTo({top:0,behavior:'smooth'})"><div>🏪</div>Market</div>
+ <div class="nav-item" onclick="showDeals()"><div>💬</div>Chat</div>
+ <div class="nav-item" onclick="openAdmin()"><div>🛡️</div>Admin</div>
+ <div class="nav-item" onclick="showDeals()"><div>📊</div>Orders</div>
+ <div class="nav-item" onclick="toast('Profile section')"><div>👤</div>Me</div>
 </nav>
 
 <script>
-const KEY_LIST='okara_pubg_listings_v1', KEY_DEALS='okara_pubg_deals_v1', KEY_PROF='okara_pubg_user_v1';
+const KEY_LIST='okara_pubg_listings_v1', KEY_DEALS='okara_pubg_deals_v1';
 let listings=JSON.parse(localStorage.getItem(KEY_LIST)||'null');
 let deals=JSON.parse(localStorage.getItem(KEY_DEALS)||'[]');
-let profile=JSON.parse(localStorage.getItem(KEY_PROF)||'{"name":"User Profile","username":"user123","email":"user@example.com","phone":"03001234567","password":""}');
 let selectedListing=null, currentCategory='All';
 
 if(!listings){
@@ -224,42 +198,7 @@ if(!listings){
 function save(){
  localStorage.setItem(KEY_LIST,JSON.stringify(listings));
  localStorage.setItem(KEY_DEALS,JSON.stringify(deals));
- localStorage.setItem(KEY_PROF,JSON.stringify(profile));
 }
-
-function updateProfileUI(){
- document.getElementById('displayProfileName').textContent=profile.name||'User Profile';
- document.getElementById('displayProfileUsername').textContent='@'+(profile.username||'user');
- document.getElementById('profHeadName').textContent=profile.name||'User Profile';
- document.getElementById('profHeadUser').textContent='@'+(profile.username||'user');
-}
-
-function openProfile(){
- document.getElementById('profName').value=profile.name||'';
- document.getElementById('profUsername').value=profile.username||'';
- document.getElementById('profEmail').value=profile.email||'';
- document.getElementById('profPhone').value=profile.phone||'';
- document.getElementById('profPassword').value=profile.password||'';
- document.getElementById('profileModal').classList.add('show');
-}
-
-function saveProfile(){
- profile.name=document.getElementById('profName').value.trim()||profile.name;
- profile.username=document.getElementById('profUsername').value.trim()||profile.username;
- profile.email=document.getElementById('profEmail').value.trim()||profile.email;
- profile.phone=document.getElementById('profPhone').value.trim()||profile.phone;
- profile.password=document.getElementById('profPassword').value||profile.password;
- save();
- updateProfileUI();
- closeModal('profileModal');
- toast('Profile successfully updated!');
-}
-
-function setActiveNav(el){
- document.querySelectorAll('.bottom-nav .nav-item').forEach(item=>item.classList.remove('active'));
- el.classList.add('active');
-}
-
 function openNav(){sidebar.classList.add('open');overlay.style.display='block'}
 function closeNav(){sidebar.classList.remove('open');overlay.style.display='none'}
 function openSell(){document.getElementById('sellModal').classList.add('show')}
@@ -306,7 +245,7 @@ function postListing(){
  const qty=Number(document.getElementById('itemQty').value);
  const price=Number(document.getElementById('itemPrice').value);
  if(!name||qty<1||price<1){toast('Item Name, Quantity aur Price complete karein');return}
- listings.push({id:Date.now(),name,cat,qty,price,seller:profile.name||'Seller',created:Date.now()});
+ listings.push({id:Date.now(),name,cat,qty,price,seller:'Seller',created:Date.now()});
  save();render();closeModal('sellModal');
  document.getElementById('itemName').value='';document.getElementById('itemQty').value='';document.getElementById('itemPrice').value='';
  toast('Listing successfully post ho gayi');
@@ -324,7 +263,7 @@ function startBuy(id){
 }
 function confirmBuy(){
  if(!selectedListing)return;
- const deal={id:'D'+Date.now(),listingId:selectedListing.id,item:selectedListing.name,qty:selectedListing.qty,price:selectedListing.price,seller:selectedListing.seller,buyer:profile.name||'Buyer',status:'Waiting for Admin',created:Date.now()};
+ const deal={id:'D'+Date.now(),listingId:selectedListing.id,item:selectedListing.name,qty:selectedListing.qty,price:selectedListing.price,seller:selectedListing.seller,buyer:'Buyer',status:'Waiting for Admin',created:Date.now()};
  deals.push(deal);save();closeModal('buyModal');selectedListing=null;showDeals();toast('Deal Admin ko bhej di gayi');
 }
 function showDeals(){
@@ -361,4 +300,13 @@ function renderAdmin(){
 }
 function setDeal(id,status){
  const d=deals.find(x=>x.id===id);if(!d)return;
- d.status=status;save()
+ d.status=status;save();renderAdmin();toast('Deal status: '+status);
+}
+render();
+</script>
+</body>
+</html>'''
+path="/mnt/data/okara_aelemi_pubg_hub.html"
+with open(path,"w",encoding="utf-8") as f:
+    f.write(html)
+print(path)
