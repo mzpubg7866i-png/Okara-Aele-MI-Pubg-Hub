@@ -5,142 +5,134 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Okara Aele×MI Pubg Hub</title>
 <style>
-{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+
+/* Themes */
 :root {
- --bg: #06040a;
- --bg-gradient: radial-gradient(circle at 20% 0%,rgba(110,68,255,.2),transparent 40%), linear-gradient(180deg,#06040a,#0c0817 50%,#06040a);
- --card: #140e24;
- --card-border: #261b40;
- --text: #ffffff;
- --muted: #8f88ab;
- --purple: #6e44ff;
- --btn-control-bg: #160f29;
- --input-bg: #090514;
+ --bg:#06040a;
+ --card:#140e24;
+ --card-border:#261b40;
+ --text:#ffffff;
+ --muted:#8f88ab;
+ --purple:#6e44ff;
+ --btn-bg:#160f29;
+ --input-bg:#090514;
 }
 
 body.light-mode {
- --bg: #f4f5f9;
- --bg-gradient: linear-gradient(180deg,#eef1f8,#f4f5f9);
- --card: #ffffff;
- --card-border: #e1e4ed;
- --text: #1a1625;
- --muted: #6c727f;
- --btn-control-bg: #eaedf5;
- --input-bg: #f0f2f7;
+ --bg:#f2f4f8;
+ --card:#ffffff;
+ --card-border:#e1e4ed;
+ --text:#111111;
+ --muted:#6c727f;
+ --btn-bg:#e9ecef;
+ --input-bg:#f8f9fa;
 }
 
-body {
- background: var(--bg-gradient);
- background-attachment: fixed;
- color: var(--text);
- min-height: 100vh;
- padding: 12px;
- padding-bottom: 80px;
- max-width: 480px;
- margin: auto;
- transition: background 0.3s, color 0.3s;
+body{
+ background:var(--bg);
+ color:var(--text);
+ min-height:100vh;
+ padding:12px;
+ padding-bottom:80px;
+ max-width:480px;
+ margin:auto;
+ transition:.3s;
 }
 
-button { cursor: pointer; border: 0; outline: none; }
+button{cursor:pointer;border:0;outline:none}
 
-/* Header */
-.header { display: flex; align-items: center; justify-content: space-between; padding: 8px 0 16px; }
-.logo-box { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-.logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg,#6e44ff,#a382ff); border-radius: 10px; display: grid; place-items: center; font-size: 18px; color:#fff; }
-.logo-text { font-weight: 800; font-size: 15px; }
-.sub-logo { font-size: 8px; color: var(--muted); letter-spacing: 1px; margin-top: 1px; }
-.header-actions { display: flex; align-items: center; gap: 12px; }
-.icon-btn { background: var(--btn-control-bg); border: 1px solid var(--card-border); width: 35px; height: 35px; border-radius: 50%; display: grid; place-items: center; color: var(--text); font-size: 14px; position: relative; cursor: pointer; }
-.badge-dot { position: absolute; top: 2px; right: 2px; background: #ff4757; color: #fff; font-size: 8px; width: 14px; height: 14px; border-radius: 50%; display: grid; place-items: center; font-weight: bold; }
+.header{display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px}
+.logo-box{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#6e44ff,#a382ff);border-radius:10px;display:grid;place-items:center;font-size:18px;color:#fff}
+.logo-text{font-weight:800;font-size:15px}
+.sub-logo{font-size:8px;color:var(--muted);letter-spacing:1px;margin-top:1px}
+.header-actions{display:flex;align-items:center;gap:12px}
+.icon-btn{background:var(--btn-bg);border:1px solid var(--card-border);width:35px;height:35px;border-radius:50%;display:grid;place-items:center;color:var(--text);font-size:14px;position:relative;cursor:pointer}
+.badge-dot{position:absolute;top:2px;right:2px;background:#ff4757;color:#fff;font-size:8px;width:14px;height:14px;border-radius:50%;display:grid;place-items:center;font-weight:bold}
 
-/* Sidebar */
-.sidebar { position: fixed; z-index: 1001; top: 0; left: -290px; width: 280px; height: 100%; background: var(--card); border-right: 1px solid var(--card-border); transition: .3s; padding-top: 18px; box-shadow: 8px 0 30px #0005; }
-.sidebar.open { left: 0; }
-.close-btn { position: absolute; right: 16px; top: 10px; font-size: 27px; color: var(--muted); background: none; }
-.profile-section { text-align: center; padding: 25px 15px 18px; border-bottom: 1px solid var(--card-border); cursor: pointer; }
-.profile-img { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg,#6e44ff,#a382ff); display: grid; place-items: center; margin: auto auto 9px; font-size: 24px; color:#fff; }
-.sidebar a { display: block; color: var(--text); text-decoration: none; padding: 14px 20px; border-bottom: 1px solid var(--card-border); font-size: 13px; }
-.overlay { display: none; position: fixed; z-index: 1000; inset: 0; background: #0008; }
+.sidebar{position:fixed;z-index:1001;top:0;left:-290px;width:280px;height:100%;background:var(--card);border-right:1px solid var(--card-border);transition:.3s;padding-top:18px;box-shadow:8px 0 30px #0005}
+.sidebar.open{left:0}
+.close-btn{position:absolute;right:16px;top:10px;font-size:27px;color:var(--muted);background:none}
+.profile-section{text-align:center;padding:25px 15px 18px;border-bottom:1px solid var(--card-border);cursor:pointer}
+.profile-img{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#6e44ff,#a382ff);display:grid;place-items:center;margin:auto auto 9px;font-size:24px;color:#fff}
+.sidebar a{display:block;color:var(--text);text-decoration:none;padding:14px 20px;border-bottom:1px solid var(--card-border);font-size:13px}
+.overlay{display:none;position:fixed;z-index:1000;inset:0;background:#0008}
 
-/* Balance Card */
-.balance-card { display: flex; justify-content: space-between; align-items: center; margin: 8px 0 16px; }
-.balance-title { font-size: 11px; color: var(--muted); }
-.balance-amount { font-size: 26px; font-weight: 800; margin-top: 2px; }
-.btn-add { background: linear-gradient(135deg,#6e44ff,#8b62ff); color: #fff; font-weight: 700; padding: 10px 18px; border-radius: 12px; font-size: 13px; }
+/* Balance Box */
+.balance-card{display:flex;justify-content:space-between;align-items:center;margin:8px 0 16px}
+.balance-title{font-size:11px;color:var(--muted)}
+.balance-amount{font-size:26px;font-weight:800;margin-top:2px}
+.btn-add{background:linear-gradient(135deg,#6e44ff,#8b62ff);color:#fff;font-weight:700;padding:10px 18px;border-radius:12px;font-size:13px}
 
 /* Controls Grid */
-.control-row { display: flex; gap: 8px; margin-bottom: 10px; }
-.btn-control { flex: 1; background: var(--btn-control-bg); border: 1px solid var(--card-border); color: var(--text); padding: 10px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.control-row{display:flex;gap:8px;margin-bottom:10px}
+.btn-control{flex:1;background:var(--btn-bg);border:1px solid var(--card-border);color:var(--text);padding:10px 12px;border-radius:12px;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
 
 /* Online Toggle Button */
-.toggle-box { flex: 1; background: var(--btn-control-bg); border: 1px solid var(--card-border); padding: 4px 8px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: .2s; }
-.switch-btn { width: 26px; height: 26px; background: #fff; border-radius: 50%; transition: .3s; transform: translateX(0); box-shadow: 0 2px 5px #0003; }
-.toggle-status { font-size: 12px; font-weight: 700; color: var(--muted); margin-right: 10px; }
+.toggle-box{flex:1;background:var(--btn-bg);border:1px solid var(--card-border);padding:4px 8px;border-radius:20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:.2s}
+.switch-btn{width:26px;height:26px;background:#fff;border-radius:50%;transition:.3s;transform:translateX(0);box-shadow:0 2px 4px #0003}
+.toggle-status{font-size:12px;font-weight:700;color:var(--muted);margin-right:10px}
 
-.toggle-box.online-active { background: #0e331c; border-color: #1e6b3b; }
-.toggle-box.online-active .switch-btn { transform: translateX(100px); background: #2ed573; box-shadow: 0 0 10px #2ed573; }
-.toggle-box.online-active .toggle-status { color: #2ed573; }
+.toggle-box.online-active{background:#0e331c;border-color:#1e6b3b}
+.toggle-box.online-active .switch-btn{transform:translateX(100px);background:#2ed573;box-shadow:0 0 10px #2ed573}
+.toggle-box.online-active .toggle-status{color:#2ed573}
 
-.btn-post { width: 100%; background: linear-gradient(135deg,#6e44ff,#8b62ff); color: #fff; font-weight: 700; padding: 12px; border-radius: 12px; font-size: 14px; margin: 4px 0 16px; }
+.btn-post{width:100%;background:linear-gradient(135deg,#6e44ff,#8b62ff);color:#fff;font-weight:700;padding:12px;border-radius:12px;font-size:14px;margin:4px 0 16px}
 
 /* Categories */
-.categories { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 14px; padding-bottom: 4px; }
-.chip { white-space: nowrap; border: 1px solid var(--card-border); background: var(--btn-control-bg); color: var(--text); border-radius: 20px; padding: 8px 16px; font-size: 12px; font-weight: 600; }
-.chip.active { background: var(--purple); border-color: var(--purple); color: #fff; }
-.count { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.categories{display:flex;gap:8px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px}
+.chip{white-space:nowrap;border:1px solid var(--card-border);background:var(--btn-bg);color:var(--text);border-radius:20px;padding:8px 16px;font-size:12px;font-weight:600}
+.chip.active{background:#6e44ff;border-color:#6e44ff;color:#fff}
+.count{font-size:12px;color:var(--muted);margin-bottom:12px}
 
 /* Listings Card */
-.card { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px; margin-bottom: 12px; }
-.card-header { display: flex; gap: 12px; margin-bottom: 8px; }
-.item-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--btn-control-bg); border: 1px solid var(--card-border); display: grid; place-items: center; font-size: 20px; flex-shrink: 0; }
-.item-category { font-size: 9px; color: var(--muted); letter-spacing: .8px; text-transform: uppercase; }
-.item-title { font-size: 15px; font-weight: 800; margin-top: 1px; }
-.item-id { font-size: 10px; color: var(--muted); margin-top: 2px; }
-.price-tag { text-align: right; margin-left: auto; }
-.price-val { font-size: 18px; font-weight: 800; }
-.price-sub { font-size: 10px; color: var(--muted); }
+.card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:14px;margin-bottom:12px}
+.card-header{display:flex;gap:12px;margin-bottom:8px}
+.item-icon{width:42px;height:42px;border-radius:12px;background:var(--btn-bg);border:1px solid var(--card-border);display:grid;place-items:center;font-size:20px;flex-shrink:0}
+.item-category{font-size:9px;color:var(--muted);letter-spacing:.8px;text-transform:uppercase}
+.item-title{font-size:15px;font-weight:800;margin-top:1px}
+.item-id{font-size:10px;color:var(--muted);margin-top:2px}
+.price-tag{text-align:right;margin-left:auto}
+.price-val{font-size:18px;font-weight:800}
+.price-sub{font-size:10px;color:var(--muted)}
 
-.seller-info { font-size: 11px; color: var(--text); margin: 10px 0 8px; display: flex; align-items: center; gap: 6px; font-weight: 700; }
-.seller-sub { font-size: 10px; color: var(--muted); margin-bottom: 8px; }
+.seller-info{font-size:11px;color:var(--text);margin:10px 0 8px;display:flex;align-items:center;gap:6px;font-weight:700}
+.seller-sub{font-size:10px;color:var(--muted);margin-bottom:8px}
 
-.badges-container { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; }
-.badge-item { font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px; }
-.bg-top-rated { background: #4d3800; color: #ffc107; border: 1px solid #735400; }
-.bg-cash-ex { background: #3b2a00; color: #ffd700; border: 1px solid #5e4300; }
-.bg-trusted { background: #113322; color: #2ed573; border: 1px solid #1b5237; }
-.bg-best-seller { background: #3a2000; color: #ffa500; border: 1px solid #593200; }
+.badges-container{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.badge-item{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;display:inline-flex;align-items:center;gap:4px}
+.bg-top-rated{background:#4d3800;color:#ffc107;border:1px solid #735400}
+.bg-cash-ex{background:#3b2a00;color:#ffd700;border:1px solid #5e4300}
+.bg-trusted{background:#113322;color:#2ed573;border:1px solid #1b5237}
+.bg-best-seller{background:#3a2000;color:#ffa500;border:1px solid #593200}
 
-.btn-buy { background: var(--purple); color: #fff; font-weight: 700; padding: 8px 22px; border-radius: 10px; font-size: 13px; float: right; }
+.btn-buy{background:#6e44ff;color:#fff;font-weight:700;padding:8px 22px;border-radius:10px;font-size:13px;float:right}
 
 /* Modal */
-.modal { display: none; position: fixed; inset: 0; z-index: 2000; background: #0008; align-items: flex-end; justify-content: center; }
-.modal.show { display: flex; }
-.modal-box { width: min(480px,100%); background: var(--card); border: 1px solid var(--card-border); border-radius: 20px 20px 0 0; padding: 18px; max-height: 90vh; overflow: auto; color: var(--text); }
-label { display: block; font-size: 11px; color: var(--muted); margin: 10px 0 4px; }
-input, select { width: 100%; background: var(--input-bg); color: var(--text); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px; outline: none; }
+.modal{display:none;position:fixed;inset:0;z-index:2000;background:#0008;align-items:flex-end;justify-content:center}
+.modal.show{display:flex}
+.modal-box{width:min(480px,100%);background:var(--card);border:1px solid var(--card-border);border-radius:20px 20px 0 0;padding:18px;max-height:90vh;overflow:auto;color:var(--text)}
+label{display:block;font-size:11px;color:var(--muted);margin:10px 0 4px}
+input,select{width:100%;background:var(--input-bg);color:var(--text);border:1px solid var(--card-border);border-radius:10px;padding:10px;outline:none}
 
-.auth-tabs { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; }
-.auth-tab { flex: 1; text-align: center; padding: 8px; font-weight: 700; color: var(--muted); cursor: pointer; font-size: 13px; }
-.auth-tab.active { color: var(--purple); border-bottom: 2px solid var(--purple); }
+.auth-tabs{display:flex;gap:10px;margin-bottom:15px;border-bottom:1px solid var(--card-border);padding-bottom:8px}
+.auth-tab{flex:1;text-align:center;padding:8px;font-weight:700;color:var(--muted);cursor:pointer;font-size:13px}
+.auth-tab.active{color:var(--purple);border-bottom:2px solid var(--purple)}
 
-.profile-card-details { background: var(--btn-control-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 15px; margin: 15px 0; }
-.profile-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--card-border); font-size: 12px; }
-.profile-row:last-child { border-bottom: none; }
-.profile-row span:first-child { color: var(--muted); }
-.profile-row span:last-child { font-weight: 700; }
+.info-box{background:var(--btn-bg);border:1px solid var(--card-border);border-radius:12px;padding:12px;margin:15px 0}
+.info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--card-border);font-size:12px}
+.info-row:last-child{border-bottom:none}
 
-.btn-logout { background: #ff4757; color: #fff; font-weight: 700; padding: 10px; border-radius: 10px; width: 100%; margin-top: 15px; }
+.btn-logout{background:#ff4757;color:#fff;font-weight:700;padding:10px;border-radius:10px;width:100%;margin-top:10px}
 
-/* Bottom Nav */
-.bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: min(480px,100%); background: var(--card); border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; padding: 8px 0; z-index: 900; backdrop-filter: blur(10px); }
-.nav-item { color: var(--muted); font-size: 10px; text-align: center; cursor: pointer; }
-.nav-item div:first-child { font-size: 16px; margin-bottom: 2px; }
-.nav-item.active { color: var(--purple); }
+/* Navigation */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:var(--card);border-top:1px solid var(--card-border);display:flex;justify-content:space-around;padding:8px 0;z-index:900;backdrop-filter:blur(10px)}
+.nav-item{color:var(--muted);font-size:10px;text-align:center;cursor:pointer}.nav-item div:first-child{font-size:16px;margin-bottom:2px}.nav-item.active{color:#8b62ff}
 
-.toast { position: fixed; z-index: 3000; left: 50%; bottom: 70px; transform: translateX(-50%) translateY(20px); background: var(--card); border: 1px solid var(--card-border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 11px; opacity: 0; pointer-events: none; transition: .2s; white-space: nowrap; box-shadow: 0 4px 15px #0003; }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-.page-section { display: none; }
-.page-section.active { display: block; }
+.toast{position:fixed;z-index:3000;left:50%;bottom:70px;transform:translateX(-50%) translateY(20px);background:var(--card);border:1px solid var(--card-border);color:var(--text);padding:8px 14px;border-radius:8px;font-size:11px;opacity:0;pointer-events:none;transition:.2s;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.page-section{display:none}.page-section.active{display:block}
 </style>
 </head>
 <body>
@@ -154,7 +146,7 @@ input, select { width: 100%; background: var(--input-bg); color: var(--text); bo
   </div>
  </div>
  <div class="header-actions">
-  <div class="icon-btn" id="themeBtn" onclick="toggleTheme()">☀️</div>
+  <div class="icon-btn" id="themeIcon" onclick="switchTheme()">☀️</div>
   <div class="icon-btn" onclick="toast('Notifications')">🔔<div class="badge-dot">1</div></div>
   <div class="icon-btn" onclick="openProfileModal()">👤</div>
  </div>
@@ -164,8 +156,8 @@ input, select { width: 100%; background: var(--input-bg); color: var(--text); bo
  <button class="close-btn" onclick="closeNav()">×</button>
  <div class="profile-section" onclick="openProfileModal();closeNav()">
   <div class="profile-img">👑</div>
-  <div style="font-weight:700" id="sbName">Guest User</div>
-  <div style="font-size:11px;color:var(--muted)" id="sbUser">Not Logged In</div>
+  <div style="font-weight:700" id="sbName">No Account</div>
+  <div style="font-size:11px;color:var(--muted)" id="sbUser">Please Log In</div>
  </div>
  <a href="#" onclick="showSection('marketView');closeNav()">🏪 Market</a>
  <a href="#" onclick="openSell();closeNav()">➕ Post Listing</a>
@@ -216,71 +208,51 @@ input, select { width: 100%; background: var(--input-bg); color: var(--text); bo
 <div id="profileModal" class="modal">
  <div class="modal-box">
   <button style="float:right;background:none;color:var(--muted);font-size:20px" onclick="closeModal('profileModal')">×</button>
-  
-  <!-- STATE 1: UNAUTHENTICATED (LOGIN / REGISTER) -->
-  <div id="authView">
+
+  <!-- FORM VIEW (NOT LOGGED IN) -->
+  <div id="authArea">
    <div class="auth-tabs">
-    <div id="tabCreate" class="auth-tab active" onclick="switchAuthTab('create')">Create Account</div>
-    <div id="tabLogin" class="auth-tab" onclick="switchAuthTab('login')">Login</div>
+    <div id="tab1" class="auth-tab active" onclick="setAuthTab('create')">Create Account</div>
+    <div id="tab2" class="auth-tab" onclick="setAuthTab('login')">Login</div>
    </div>
 
-   <!-- FORM: CREATE ACCOUNT -->
-   <div id="formCreate">
+   <div id="createForm">
     <label>Full Name</label>
-    <input id="regName" placeholder="Enter Name">
-
+    <input id="cName" placeholder="Enter Name">
     <label>Username</label>
-    <input id="regUser" placeholder="Enter Username">
-
+    <input id="cUser" placeholder="Enter Username">
     <label>Email Address</label>
-    <input id="regEmail" type="email" placeholder="Enter Email">
-
-    <label>Phone Number</label>
-    <input id="regPhone" type="tel" placeholder="Enter Phone Number">
-
+    <input id="cEmail" type="email" placeholder="Enter Email">
     <label>Password</label>
-    <input id="regPass" type="password" placeholder="Enter Password">
-
-    <button class="btn-post" style="margin-top:15px" onclick="createAccount()">Create Account</button>
+    <input id="cPass" type="password" placeholder="Enter Password">
+    <button class="btn-post" style="margin-top:15px" onclick="doRegister()">Create Account</button>
    </div>
 
-   <!-- FORM: LOGIN -->
-   <div id="formLogin" style="display:none">
+   <div id="loginForm" style="display:none">
     <label>Email or Username</label>
-    <input id="loginUser" placeholder="Enter Email or Username">
-
+    <input id="lUser" placeholder="Enter Username / Email">
     <label>Password</label>
-    <input id="loginPass" type="password" placeholder="Enter Password">
-
-    <button class="btn-post" style="margin-top:15px" onclick="loginUser()">Login</button>
+    <input id="lPass" type="password" placeholder="Enter Password">
+    <button class="btn-post" style="margin-top:15px" onclick="doLogin()">Login</button>
    </div>
   </div>
 
-  <!-- STATE 2: LOGGED IN USER PROFILE -->
-  <div id="profileView" style="display:none">
-   <h3>My Profile</h3>
+  <!-- PROFILE VIEW (LOGGED IN) -->
+  <div id="profileArea" style="display:none">
+   <h3 style="margin-bottom:10px">Account Profile</h3>
    <div style="text-align:center;margin:15px 0">
     <div class="profile-img" style="margin:auto">👑</div>
-    <h4 id="profDispName" style="margin-top:6px">--</h4>
-    <p id="profDispUser" style="font-size:11px;color:var(--muted)">@--</p>
+    <h4 id="dispName">--</h4>
+    <p id="dispUser" style="font-size:11px;color:var(--muted)">@--</p>
    </div>
 
-   <div class="profile-card-details">
-    <div class="profile-row">
-     <span>Full Name:</span>
-     <span id="profValName">--</span>
-    </div>
-    <div class="profile-row">
-     <span>Username:</span>
-     <span id="profValUser">--</span>
-    </div>
-    <div class="profile-row">
-     <span>Email Address:</span>
-     <span id="profValEmail">--</span>
-    </div>
+   <div class="info-box">
+    <div class="info-row"><span>Name:</span><span id="vName">--</span></div>
+    <div class="info-row"><span>Username:</span><span id="vUser">--</span></div>
+    <div class="info-row"><span>Email:</span><span id="vEmail">--</span></div>
    </div>
 
-   <button class="btn-logout" onclick="logoutUser()">Log Out</button>
+   <button class="btn-logout" onclick="doLogout()">Log Out</button>
   </div>
 
  </div>
@@ -326,79 +298,142 @@ input, select { width: 100%; background: var(--input-bg); color: var(--text); bo
 </nav>
 
 <script>
-const KEY_LIST='okara_listings_v5', KEY_USER='okara_active_user_v5', KEY_THEME='okara_theme_v5';
-let listings = JSON.parse(localStorage.getItem(KEY_LIST) || 'null');
-let currentUser = JSON.parse(localStorage.getItem(KEY_USER) || 'null');
-let isDarkTheme = localStorage.getItem(KEY_THEME) !== 'light';
+const KEY_LIST='okara_listings_v6', KEY_ACC='okara_user_acc_v6', KEY_THEME='okara_theme_v6';
+let listings = JSON.parse(localStorage.getItem(KEY_LIST)| meGetListings());
+let myUser = JSON.parse(localStorage.getItem(KEY_ACC) || 'null');
+let isLightMode = localStorage.getItem(KEY_THEME) === 'light';
 
 let selectedListing=null, currentCategory='All', isOnline=false;
 
-if(!listings){
- listings=[
+function meGetListings(){
+ return [
   {id:1,cat:'ITEMS',title:'Rs-1k ▪Wallet Topup',code:'#38C807D6',desc:'TopUp Okara app wallet cash charges 1%',price:1010,left:150,seller:'OKARA AELE OWNER',isNew:true},
   {id:2,cat:'POPULARITY',title:'100m to 1Billion Popularity',code:'#99A102D1',desc:'Instant delivery guaranteed by admin',price:1000,left:1000000000,seller:'OKARA AELE OWNER',isNew:false}
  ];
- saveListings();
 }
 
-function saveListings(){ localStorage.setItem(KEY_LIST, JSON.stringify(listings)); }
-function saveUser(){ localStorage.setItem(KEY_USER, JSON.stringify(currentUser)); }
+function saveListings(){ localStorage.setItem(KEY_LIST,JSON.stringify(listings)); }
+function saveAccount(){ localStorage.setItem(KEY_ACC,JSON.stringify(myUser)); }
 
 /* Theme Handler */
 function applyTheme(){
- if(isDarkTheme){
-  document.body.classList.remove('light-mode');
-  document.getElementById('themeBtn').textContent = '☀️';
- } else {
+ if(isLightMode){
   document.body.classList.add('light-mode');
-  document.getElementById('themeBtn').textContent = '🌙';
+  document.getElementById('themeIcon').textContent = '🌙';
+ } else {
+  document.body.classList.remove('light-mode');
+  document.getElementById('themeIcon').textContent = '☀️';
  }
- localStorage.setItem(KEY_THEME, isDarkTheme ? 'dark' : 'light');
+ localStorage.setItem(KEY_THEME, isLightMode ? 'light' : 'dark');
 }
 
-function toggleTheme(){
- isDarkTheme = !isDarkTheme;
+function switchTheme(){
+ isLightMode = !isLightMode;
  applyTheme();
- toast(isDarkTheme ? 'Night Mode Active' : 'Day Mode Active');
+ toast(isLightMode ? 'Light Mode' : 'Night Mode');
 }
 
-/* Auth & Profile logic */
-function updateProfileUI(){
- if(currentUser){
-  document.getElementById('authView').style.display = 'none';
-  document.getElementById('profileView').style.display = 'block';
-  
-  document.getElementById('profDispName').textContent = currentUser.name;
-  document.getElementById('profDispUser').textContent = '@' + currentUser.username;
-  document.getElementById('profValName').textContent = currentUser.name;
-  document.getElementById('profValUser').textContent = currentUser.username;
-  document.getElementById('profValEmail').textContent = currentUser.email;
+/* Account & Profile */
+function checkAccountView(){
+ if(myUser){
+  document.getElementById('authArea').style.display='none';
+  document.getElementById('profileArea').style.display='block';
 
-  document.getElementById('sbName').textContent = currentUser.name;
-  document.getElementById('sbUser').textContent = '@' + currentUser.username;
+  document.getElementById('dispName').textContent = myUser.name;
+  document.getElementById('dispUser').textContent = '@' + myUser.username;
+  document.getElementById('vName').textContent = myUser.name;
+  document.getElementById('vUser').textContent = myUser.username;
+  document.getElementById('vEmail').textContent = myUser.email;
+
+  document.getElementById('sbName').textContent = myUser.name;
+  document.getElementById('sbUser').textContent = '@' + myUser.username;
  } else {
-  document.getElementById('authView').style.display = 'block';
-  document.getElementById('profileView').style.display = 'none';
+  document.getElementById('authArea').style.display='block';
+  document.getElementById('profileArea').style.display='none';
 
-  document.getElementById('sbName').textContent = 'Guest User';
-  document.getElementById('sbUser').textContent = 'Not Logged In';
+  document.getElementById('sbName').textContent = 'No Account';
+  document.getElementById('sbUser').textContent = 'Please Log In';
  }
 }
 
-function switchAuthTab(type){
- if(type==='create'){
-  document.getElementById('tabCreate').classList.add('active');
-  document.getElementById('tabLogin').classList.remove('active');
-  document.getElementById('formCreate').style.display = 'block';
-  document.getElementById('formLogin').style.display = 'none';
+function setAuthTab(tab){
+ if(tab==='create'){
+  document.getElementById('tab1').classList.add('active');
+  document.getElementById('tab2').classList.remove('active');
+  document.getElementById('createForm').style.display='block';
+  document.getElementById('loginForm').style.display='none';
  } else {
-  document.getElementById('tabLogin').classList.add('active');
-  document.getElementById('tabCreate').classList.remove('active');
-  document.getElementById('formLogin').style.display = 'block';
-  document.getElementById('formCreate').style.display = 'none';
+  document.getElementById('tab2').classList.add('active');
+  document.getElementById('tab1').classList.remove('active');
+  document.getElementById('loginForm').style.display='block';
+  document.getElementById('createForm').style.display='none';
  }
 }
 
-function createAccount(){
- const name = document.getElementById('regName').value.trim();
- const user = document.getElementById('regUser').value.t
+function doRegister(){
+ const n = document.getElementById('cName').value;
+ const u = document.getElementById('cUser').value;
+ const e = document.getElementById('cEmail').value;
+ const p = document.getElementById('cPass').value;
+
+ if(!n || !u || !e){ toast('Please fill all fields'); return; }
+
+ myUser = { name: n, username: u, email: e, pass: p };
+ saveAccount();
+ checkAccountView();
+ toast('Account Created Successfully!');
+}
+
+function doLogin(){
+ const u = document.getElementById('lUser').value;
+ const p = document.getElementById('lPass').value;
+ if(!u){ toast('Please enter credentials'); return; }
+
+ myUser = { name: u, username: u, email: u + '@gmail.com' };
+ saveAccount();
+ checkAccountView();
+ toast('Logged In!');
+}
+
+function doLogout(){
+ myUser = null;
+ localStorage.removeItem(KEY_ACC);
+ checkAccountView();
+ toast('Logged Out!');
+}
+
+function toggleOnlineStatus(){
+ isOnline = !isOnline;
+ const btn = document.getElementById('onlineToggleBtn');
+ const txt = document.getElementById('toggleText');
+ if(isOnline){
+  btn.classList.add('online-active');
+  txt.textContent = 'Online';
+  toast('Status: Online');
+ } else {
+  btn.classList.remove('online-active');
+  txt.textContent = 'Offline';
+  toast('Status: Offline');
+ }
+}
+
+function render(){
+ const box=document.getElementById('listings');
+ const data=currentCategory==='All'?listings:listings.filter(x=>x.cat===currentCategory);
+ box.innerHTML=data.map(x=>`
+ <div class="card">
+  <div class="card-header">
+   <div class="item-icon">${x.cat==='ITEMS'?'📦':x.cat==='POPULARITY'?'📈':'🪙'}</div>
+   <div>
+    <div class="item-category">${x.cat}</div>
+    <div class="item-title">${x.title}</div>
+    <div class="item-id">${x.code||'#000000'}</div>
+   </div>
+   <div class="price-tag">
+    <div class="price-val">Rs ${x.price.toLocaleString()}</div>
+    <div class="price-sub">${x.left?x.left+' left':''}</div>
+   </div>
+  </div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:6px">${x.desc||''}</div>
+  <div class="seller-info">👤 👑 ${x.seller}</div>
+  ${x.isNew ? '<div class="seller-sub">New seller</di
