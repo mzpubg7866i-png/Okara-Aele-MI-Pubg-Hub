@@ -14,12 +14,12 @@ body{
 }
 button{cursor:pointer;border:0;outline:none}
 .header{display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px}
-.logo-box{display:flex;align-items:center;gap:10px}
+.logo-box{display:flex;align-items:center;gap:10px;cursor:pointer}
 .logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#6e44ff,#a382ff);border-radius:10px;display:grid;place-items:center;font-size:18px}
-.logo-text{font-weight:800;font-size:16px}
+.logo-text{font-weight:800;font-size:15px}
 .sub-logo{font-size:8px;color:var(--muted);letter-spacing:1px;margin-top:1px}
 .header-actions{display:flex;align-items:center;gap:12px}
-.icon-btn{background:#18112d;border:1px solid var(--card-border);width:35px;height:35px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:14px;position:relative}
+.icon-btn{background:#18112d;border:1px solid var(--card-border);width:35px;height:35px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:14px;position:relative;cursor:pointer}
 .badge-dot{position:absolute;top:2px;right:2px;background:#ff4757;color:#fff;font-size:8px;width:14px;height:14px;border-radius:50%;display:grid;place-items:center;font-weight:bold}
 
 .sidebar{position:fixed;z-index:1001;top:0;left:-290px;width:280px;height:100%;background:#0d0818;border-right:1px solid var(--card-border);transition:.3s;padding-top:18px;box-shadow:8px 0 30px #000}
@@ -39,10 +39,15 @@ button{cursor:pointer;border:0;outline:none}
 /* Controls Grid */
 .control-row{display:flex;gap:8px;margin-bottom:10px}
 .btn-control{flex:1;background:#160f29;border:1px solid var(--card-border);color:#fff;padding:10px 12px;border-radius:12px;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
-.toggle-box{flex:1;background:#160f29;border:1px solid var(--card-border);padding:4px 8px;border-radius:20px;display:flex;align-items:center;justify-content:space-between}
-.switch-btn{width:28px;height:28px;background:#fff;border-radius:50%;transition:.3s}
-.toggle-box.active{background:#1b1233}
-.toggle-box.active .switch-btn{transform:translateX(0)}
+
+/* Online Toggle Button */
+.toggle-box{flex:1;background:#160f29;border:1px solid var(--card-border);padding:4px 8px;border-radius:20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:.2s}
+.switch-btn{width:26px;height:26px;background:#fff;border-radius:50%;transition:.3s;transform:translateX(0)}
+.toggle-status{font-size:12px;font-weight:700;color:#aaa;margin-right:10px}
+
+.toggle-box.online-active{background:#0e331c;border-color:#1e6b3b}
+.toggle-box.online-active .switch-btn{transform:translateX(100px);background:#2ed573;box-shadow:0 0 10px #2ed573}
+.toggle-box.online-active .toggle-status{color:#2ed573}
 
 .btn-post{width:100%;background:linear-gradient(135deg,#6e44ff,#8b62ff);color:#fff;font-weight:700;padding:12px;border-radius:12px;font-size:14px;margin:4px 0 16px}
 
@@ -66,7 +71,6 @@ button{cursor:pointer;border:0;outline:none}
 .seller-info{font-size:11px;color:#ddd;margin:10px 0 8px;display:flex;align-items:center;gap:6px;font-weight:700}
 .seller-sub{font-size:10px;color:var(--muted);margin-bottom:8px}
 
-/* Badges Exact Design */
 .badges-container{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
 .badge-item{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;display:inline-flex;align-items:center;gap:4px}
 .bg-top-rated{background:#4d3800;color:#ffc107;border:1px solid #735400}
@@ -79,9 +83,12 @@ button{cursor:pointer;border:0;outline:none}
 /* Modal */
 .modal{display:none;position:fixed;inset:0;z-index:2000;background:#000b;align-items:flex-end;justify-content:center}
 .modal.show{display:flex}
-.modal-box{width:min(480px,100%);background:#100a1f;border:1px solid var(--card-border);border-radius:20px 20px 0 0;padding:18px;max-height:85vh;overflow:auto}
+.modal-box{width:min(480px,100%);background:#100a1f;border:1px solid var(--card-border);border-radius:20px 20px 0 0;padding:18px;max-height:90vh;overflow:auto}
 label{display:block;font-size:11px;color:var(--muted);margin:10px 0 4px}
 input,select{width:100%;background:#090514;color:#fff;border:1px solid var(--card-border);border-radius:10px;padding:10px;outline:none}
+
+.btn-login{background:#2ed573;color:#000;font-weight:700;padding:10px;border-radius:10px;width:100%;margin-top:12px}
+.btn-logout{background:#ff4757;color:#fff;font-weight:700;padding:10px;border-radius:10px;width:100%;margin-top:8px}
 
 /* Navigation */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:#0a0614e6;border-top:1px solid var(--card-border);display:flex;justify-content:space-around;padding:8px 0;z-index:900;backdrop-filter:blur(10px)}
@@ -98,29 +105,29 @@ input,select{width:100%;background:#090514;color:#fff;border:1px solid var(--car
  <div class="logo-box" onclick="openNav()">
   <div class="logo-icon">👑</div>
   <div>
-   <div class="logo-text">Okara Aele</div>
+   <div class="logo-text">Okara Aele×MI Pubg Hub</div>
    <div class="sub-logo">BUY • SELL • CONNECT • SAFE</div>
   </div>
  </div>
  <div class="header-actions">
   <div class="icon-btn" onclick="toast('Theme Mode')">☀️</div>
   <div class="icon-btn" onclick="toast('Notifications')">🔔<div class="badge-dot">1</div></div>
-  <div class="icon-btn" onclick="showSection('profileView')">👤</div>
+  <div class="icon-btn" onclick="openProfileModal()">👤</div>
  </div>
 </header>
 
 <aside id="sidebar" class="sidebar">
  <button class="close-btn" onclick="closeNav()">×</button>
- <div class="profile-section" onclick="showSection('profileView');closeNav()">
+ <div class="profile-section" onclick="openProfileModal();closeNav()">
   <div class="profile-img">👑</div>
-  <div style="font-weight:700">Okara Aele</div>
-  <div style="font-size:11px;color:var(--muted)">@OkaraAele (Admin)</div>
+  <div style="font-weight:700" id="sbName">Okara Aele</div>
+  <div style="font-size:11px;color:var(--muted)" id="sbUser">@OkaraAele</div>
  </div>
  <a href="#" onclick="showSection('marketView');closeNav()">🏪 Market</a>
  <a href="#" onclick="openSell();closeNav()">➕ Post Listing</a>
  <a href="#" onclick="showDeals();closeNav()">📊 My Deals</a>
  <a href="#" onclick="openAdmin();closeNav()">🛡️ Admin Panel</a>
- <a href="#" onclick="showSection('profileView');closeNav()">👤 Profile Settings</a>
+ <a href="#" onclick="openProfileModal();closeNav()">👤 Profile & Account</a>
 </aside>
 <div id="overlay" class="overlay" onclick="closeNav()"></div>
 
@@ -131,14 +138,14 @@ input,select{width:100%;background:#090514;color:#fff;border:1px solid var(--car
    <div class="balance-title">Total Balance (PKR)</div>
    <div class="balance-amount">Rs 0</div>
   </div>
-  <button class="btn-add" onclick="toast('Add Funds feature clicked')">+ Add Funds</button>
+  <button class="btn-add" onclick="toast('Add Funds Clicked')">+ Add Funds</button>
  </div>
 
  <div class="control-row">
   <button class="btn-control" onclick="toast('Alerts Enabled')">🔔 Alert Me</button>
-  <div class="toggle-box active" onclick="toggleOnline(this)">
+  <div id="onlineToggleBtn" class="toggle-box" onclick="toggleOnlineStatus()">
    <div class="switch-btn"></div>
-   <span style="font-size:12px;font-weight:600;margin-right:10px">Online</span>
+   <span id="toggleText" class="toggle-status">Offline</span>
   </div>
  </div>
 
@@ -161,12 +168,36 @@ input,select{width:100%;background:#090514;color:#fff;border:1px solid var(--car
  <div id="listings"></div>
 </div>
 
-<!-- PROFILE PAGE -->
-<div id="profileView" class="page-section">
- <div class="card" style="text-align:center;padding:20px">
-  <div class="profile-img" style="margin:auto">👑</div>
-  <h3 style="margin-top:10px">Okara Aele</h3>
-  <p style="font-size:12px;color:var(--muted)">Main Admin & Owner</p>
+<!-- PROFILE MODAL -->
+<div id="profileModal" class="modal">
+ <div class="modal-box">
+  <button style="float:right;background:none;color:#aaa;font-size:20px" onclick="closeModal('profileModal')">×</button>
+  <h3>User Profile Settings</h3>
+  
+  <div style="text-align:center;margin:15px 0">
+   <div class="profile-img" style="margin:auto">👑</div>
+   <h4 id="profDispName" style="margin-top:6px">Okara Aele</h4>
+   <p id="profDispUser" style="font-size:11px;color:var(--muted)">@OkaraAele</p>
+  </div>
+
+  <label>Full Name</label>
+  <input id="profName" placeholder="Enter Name">
+
+  <label>Username</label>
+  <input id="profUser" placeholder="Enter Username">
+
+  <label>Email Address</label>
+  <input id="profEmail" type="email" placeholder="Enter Email">
+
+  <label>Phone Number</label>
+  <input id="profPhone" type="tel" placeholder="Enter Phone Number">
+
+  <label>Password</label>
+  <input id="profPass" type="password" placeholder="Enter Password">
+
+  <button class="btn-post" style="margin-top:15px" onclick="saveProfileData()">Save Profile</button>
+  <button class="btn-login" onclick="loginUser()">Login</button>
+  <button class="btn-logout" onclick="logoutUser()">Logout</button>
  </div>
 </div>
 
@@ -206,14 +237,16 @@ input,select{width:100%;background:#090514;color:#fff;border:1px solid var(--car
  <div class="nav-item" onclick="showDeals();setActiveNav(this)"><div>💬</div>Chat</div>
  <div class="nav-item" onclick="openAdmin();setActiveNav(this)"><div>🛡️</div>DVA</div>
  <div class="nav-item" onclick="showDeals();setActiveNav(this)"><div>📊</div>Orders</div>
- <div class="nav-item" onclick="showSection('profileView');setActiveNav(this)"><div>👤</div>Me</div>
+ <div class="nav-item" onclick="openProfileModal();setActiveNav(this)"><div>👤</div>Me</div>
 </nav>
 
 <script>
-const KEY_LIST='okara_listings_v3', KEY_DEALS='okara_deals_v3';
+const KEY_LIST='okara_listings_v4', KEY_USER='okara_user_v4', KEY_DEALS='okara_deals_v4';
 let listings=JSON.parse(localStorage.getItem(KEY_LIST)||'null');
 let deals=JSON.parse(localStorage.getItem(KEY_DEALS)||'[]');
-let selectedListing=null, currentCategory='All';
+let user=JSON.parse(localStorage.getItem(KEY_USER)||'{"name":"Okara Aele","username":"OkaraAele","email":"admin@okara.com","phone":"03000000000","pass":"123456"}');
+
+let selectedListing=null, currentCategory='All', isOnline=false;
 
 if(!listings){
  listings=[
@@ -226,6 +259,58 @@ if(!listings){
 function save(){
  localStorage.setItem(KEY_LIST,JSON.stringify(listings));
  localStorage.setItem(KEY_DEALS,JSON.stringify(deals));
+ localStorage.setItem(KEY_USER,JSON.stringify(user));
+}
+
+function loadProfileFields(){
+ document.getElementById('profName').value = user.name || '';
+ document.getElementById('profUser').value = user.username || '';
+ document.getElementById('profEmail').value = user.email || '';
+ document.getElementById('profPhone').value = user.phone || '';
+ document.getElementById('profPass').value = user.pass || '';
+ 
+ document.getElementById('profDispName').textContent = user.name || 'Okara Aele';
+ document.getElementById('profDispUser').textContent = '@' + (user.username || 'OkaraAele');
+ document.getElementById('sbName').textContent = user.name || 'Okara Aele';
+ document.getElementById('sbUser').textContent = '@' + (user.username || 'OkaraAele');
+}
+
+function saveProfileData(){
+ user.name = document.getElementById('profName').value;
+ user.username = document.getElementById('profUser').value;
+ user.email = document.getElementById('profEmail').value;
+ user.phone = document.getElementById('profPhone').value;
+ user.pass = document.getElementById('profPass').value;
+ save();
+ loadProfileFields();
+ toast('Profile Saved!');
+ closeModal('profileModal');
+}
+
+function loginUser(){
+ toast('Logged in successfully!');
+ closeModal('profileModal');
+}
+
+function logoutUser(){
+ toast('Logged out!');
+ closeModal('profileModal');
+}
+
+function toggleOnlineStatus(){
+ isOnline = !isOnline;
+ const btn = document.getElementById('onlineToggleBtn');
+ const txt = document.getElementById('toggleText');
+ 
+ if(isOnline){
+  btn.classList.add('online-active');
+  txt.textContent = 'Online';
+  toast('Status: Online');
+ } else {
+  btn.classList.remove('online-active');
+  txt.textContent = 'Offline';
+  toast('Status: Offline');
+ }
 }
 
 function render(){
@@ -262,40 +347,11 @@ function render(){
  </div>`).join('');
 }
 
-function startBuy(id){
- selectedListing=listings.find(x=>x.id===id);
- if(!selectedListing)return;
- document.getElementById('buyInfo').innerHTML=`<b>${selectedListing.title}</b><br>Price: Rs ${selectedListing.price}`;
- document.getElementById('buyModal').classList.add('show');
-}
-
-function confirmBuy(){
- if(!selectedListing)return;
- deals.push({id:'D'+Date.now(),item:selectedListing.title,price:selectedListing.price,status:'Admin Processing'});
- save();closeModal('buyModal');toast('Order Placed Successfully!');
-}
-
-function postListing(){
- const name=document.getElementById('itemName').value;
- const cat=document.getElementById('itemCat').value;
- const price=Number(document.getElementById('itemPrice').value);
- if(!name||!price)return;
- listings.push({id:Date.now(),cat:cat,title:name,code:'#'+Math.floor(Math.random()*16777215).toString(16),desc:'Verified Listing',price:price,left:10,seller:'OKARA AELE OWNER',isNew:true});
- save();render();closeModal('sellModal');toast('Post Published!');
-}
-
-function toggleOnline(el){
- el.classList.toggle('active');
- toast('Status changed');
-}
-
-function filterCat(cat,el){
- currentCategory=cat;
- document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
- el.classList.add('active');
- render();
-}
-
+function openProfileModal(){ loadProfileFields(); document.getElementById('profileModal').classList.add('show'); }
+function startBuy(id){ selectedListing=listings.find(x=>x.id===id); if(!selectedListing)return; document.getElementById('buyInfo').innerHTML=`<b>${selectedListing.title}</b><br>Price: Rs ${selectedListing.price}`; document.getElementById('buyModal').classList.add('show'); }
+function confirmBuy(){ if(!selectedListing)return; deals.push({id:'D'+Date.now(),item:selectedListing.title,price:selectedListing.price,status:'Admin Processing'}); save();closeModal('buyModal');toast('Order Placed Successfully!'); }
+function postListing(){ const name=document.getElementById('itemName').value; const cat=document.getElementById('itemCat').value; const price=Number(document.getElementById('itemPrice').value); if(!name||!price)return; listings.push({id:Date.now(),cat:cat,title:name,code:'#'+Math.floor(Math.random()*16777215).toString(16),desc:'Verified Listing',price:price,left:10,seller:'OKARA AELE OWNER',isNew:true}); save();render();closeModal('sellModal');toast('Post Published!'); }
+function filterCat(cat,el){ currentCategory=cat; document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); el.classList.add('active'); render(); }
 function openNav(){sidebar.classList.add('open');overlay.style.display='block'}
 function closeNav(){sidebar.classList.remove('open');overlay.style.display='none'}
 function openSell(){document.getElementById('sellModal').classList.add('show')}
@@ -306,6 +362,7 @@ function showDeals(){document.getElementById('dealsModal').classList.add('show')
 function openAdmin(){document.getElementById('adminModal').classList.add('show')}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
 
+loadProfileFields();
 render();
 </script>
 </body>
