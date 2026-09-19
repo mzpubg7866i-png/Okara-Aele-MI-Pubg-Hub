@@ -11,7 +11,7 @@ body{
  background:radial-gradient(circle at 15% 5%,rgba(118,80,232,.25),transparent 34%),
  radial-gradient(circle at 90% 85%,rgba(169,140,255,.13),transparent 35%),
  linear-gradient(145deg,#050509,#10091b 48%,#06060a);
- background-attachment:fixed;color:#fff;min-height:100vh;padding:15px;padding-bottom:78px;max-width:480px;margin:auto
+ background-attachment:fixed;color:#fff;min-height:100vh;padding:15px;padding-bottom:85px;max-width:480px;margin:auto
 }
 button{cursor:pointer}
 .header{display:flex;align-items:center;justify-content:space-between;padding:9px 0 15px}
@@ -53,9 +53,13 @@ button{cursor:pointer}
 .seller{font-size:10px;color:#aaa;margin-top:10px}
 .buy{width:100%;margin-top:12px}
 .empty{text-align:center;padding:28px;color:#898396;border:1px dashed #302651;border-radius:15px}
+
+/* Full Screen Modal Style for Profile & others */
 .modal{display:none;position:fixed;inset:0;z-index:2000;background:#000b;align-items:flex-end;justify-content:center}
 .modal.show{display:flex}
 .modal-box{width:min(480px,100%);background:#110d1d;border:1px solid #302553;border-radius:22px 22px 0 0;padding:20px;max-height:90vh;overflow:auto}
+.modal-box.full-page{height:100vh;max-height:100vh;border-radius:0;border:none}
+
 .modal-title{font-size:19px;font-weight:800;margin-bottom:15px}
 .close-modal{float:right;background:none;border:0;color:#aaa;font-size:23px}
 label{display:block;font-size:11px;color:#aaa;margin:11px 0 5px}
@@ -66,11 +70,28 @@ input:focus,select:focus{border-color:#7650e8}
 .deal-status{display:inline-block;padding:5px 8px;border-radius:7px;background:#2a2050;color:#cbbdff;font-size:10px;margin-top:8px}
 .admin-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .admin-actions button{font-size:10px;padding:7px 9px;border-radius:8px;border:1px solid #40336d;background:#211a38;color:#fff}
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:linear-gradient(180deg,#0d0a16f5,#07060bf8);border-top:1px solid #292047;display:flex;justify-around;padding:9px 0 10px;z-index:900;backdrop-filter:blur(12px)}
-.nav-item{color:#8f8a9e;font-size:10px;text-align:center}.nav-item div:first-child{font-size:17px;margin-bottom:2px}.nav-item.active{color:#9d80ff}
-.toast{position:fixed;z-index:3000;left:50%;bottom:75px;transform:translateX(-50%) translateY(20px);background:#20173a;border:1px solid #49357d;padding:10px 14px;border-radius:10px;font-size:11px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
+
+/* Fixed Bottom Navigation Bar */
+.bottom-nav{
+ position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+ width:min(480px,100%);
+ background:linear-gradient(180deg,#0d0a16f5,#07060bf8);
+ border-top:1px solid #292047;
+ display:flex;justify-content:space-around;align-items:center;
+ padding:10px 0 12px;
+ z-index:900;
+ backdrop-filter:blur(12px)
+}
+.nav-item{
+ color:#8f8a9e;font-size:11px;text-align:center;
+ flex:1;display:flex;flex-direction:column;align-items:center;
+ text-decoration:none;cursor:pointer
+}
+.nav-item .icon-text{font-size:20px;margin-bottom:3px;display:block;line-height:1}
+.nav-item.active{color:#9d80ff;font-weight:bold}
+
+.toast{position:fixed;z-index:3000;left:50%;bottom:85px;transform:translateX(-50%) translateY(20px);background:#20173a;border:1px solid #49357d;padding:10px 14px;border-radius:10px;font-size:11px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.hidden{display:none!important}
 </style>
 </head>
 <body>
@@ -123,22 +144,34 @@ input:focus,select:focus{border-color:#7650e8}
 <div id="count" class="count">0 listings</div>
 <div id="listings"></div>
 
-<!-- Profile Modal -->
+<!-- Profile Modal (Full Screen Page) -->
 <div id="profileModal" class="modal">
- <div class="modal-box">
+ <div class="modal-box full-page">
   <button class="close-modal" onclick="closeModal('profileModal')">×</button>
-  <div class="modal-title">Edit Profile Details</div>
+  <div class="modal-title">👤 User Profile Settings</div>
+  
+  <div style="text-align:center;margin:20px 0;">
+    <div class="profile-img" style="width:80px;height:80px;font-size:35px;">👑</div>
+    <h3 id="profHeadName" style="margin-top:10px;">User Profile</h3>
+    <p id="profHeadUser" style="color:var(--muted);font-size:12px;">@username</p>
+  </div>
+
   <label>Full Name</label>
   <input id="profName" placeholder="Enter Full Name">
+  
   <label>Username</label>
   <input id="profUsername" placeholder="Enter Username">
+  
   <label>Email Address</label>
   <input id="profEmail" type="email" placeholder="Enter Email">
+  
   <label>Phone Number</label>
   <input id="profPhone" type="tel" placeholder="Enter Phone Number">
+  
   <label>Password</label>
   <input id="profPassword" type="password" placeholder="Enter New Password">
-  <button class="btn full" onclick="saveProfile()" style="margin-top:15px">Save Profile</button>
+  
+  <button class="btn full" onclick="saveProfile()" style="margin-top:25px;padding:14px;">Save Profile Details</button>
  </div>
 </div>
 
@@ -192,12 +225,28 @@ input:focus,select:focus{border-color:#7650e8}
 
 <div id="toast" class="toast"></div>
 
+<!-- Properly Styled & Spaced Bottom Navigation -->
 <nav class="bottom-nav">
- <div class="nav-item active" onclick="window.scrollTo({top:0,behavior:'smooth'})"><div>🏪</div>Market</div>
- <div class="nav-item" onclick="showDeals()"><div>💬</div>Chat</div>
- <div class="nav-item" onclick="openAdmin()"><div>🛡️</div>Admin</div>
- <div class="nav-item" onclick="showDeals()"><div>📊</div>Orders</div>
- <div class="nav-item" onclick="openProfile()"><div>👤</div>Profile</div>
+ <div class="nav-item active" onclick="setActiveNav(this);window.scrollTo({top:0,behavior:'smooth'})">
+  <span class="icon-text">🏪</span>
+  <span>Market</span>
+ </div>
+ <div class="nav-item" onclick="setActiveNav(this);showDeals()">
+  <span class="icon-text">💬</span>
+  <span>Chat</span>
+ </div>
+ <div class="nav-item" onclick="setActiveNav(this);openAdmin()">
+  <span class="icon-text">🛡️</span>
+  <span>Admin</span>
+ </div>
+ <div class="nav-item" onclick="setActiveNav(this);showDeals()">
+  <span class="icon-text">📊</span>
+  <span>Orders</span>
+ </div>
+ <div class="nav-item" onclick="setActiveNav(this);openProfile()">
+  <span class="icon-text">👤</span>
+  <span>Profile</span>
+ </div>
 </nav>
 
 <script>
@@ -224,6 +273,8 @@ function save(){
 function updateProfileUI(){
  document.getElementById('displayProfileName').textContent=profile.name||'User Profile';
  document.getElementById('displayProfileUsername').textContent='@'+(profile.username||'user');
+ document.getElementById('profHeadName').textContent=profile.name||'User Profile';
+ document.getElementById('profHeadUser').textContent='@'+(profile.username||'user');
 }
 
 function openProfile(){
@@ -245,6 +296,11 @@ function saveProfile(){
  updateProfileUI();
  closeModal('profileModal');
  toast('Profile successfully updated!');
+}
+
+function setActiveNav(el){
+ document.querySelectorAll('.bottom-nav .nav-item').forEach(item=>item.classList.remove('active'));
+ el.classList.add('active');
 }
 
 function openNav(){sidebar.classList.add('open');overlay.style.display='block'}
@@ -337,22 +393,4 @@ function renderAdmin(){
   <div class="title">${esc(d.item)}</div>
   <div class="meta">Buyer: ${esc(d.buyer)}</div>
   <div class="meta">Seller: ${esc(d.seller)}</div>
-  <div class="meta">Quantity: ${Number(d.qty).toLocaleString()} · Price: Rs ${Number(d.price).toLocaleString()}</div>
-  <span class="deal-status">${esc(d.status)}</span>
-  <div class="admin-actions">
-   <button onclick="setDeal('${d.id}','Buyer + Seller Connected')">Connect</button>
-   <button onclick="setDeal('${d.id}','In Progress')">In Progress</button>
-   <button onclick="setDeal('${d.id}','Completed')">Complete</button>
-  </div>
- </div>`).join('');
-}
-function setDeal(id,status){
- const d=deals.find(x=>x.id===id);if(!d)return;
- d.status=status;save();renderAdmin();toast('Deal status: '+status);
-}
-
-updateProfileUI();
-render();
-</script>
-</body>
-</html>
+  <div class="meta">Quantity: ${Number(d
