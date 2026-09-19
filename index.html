@@ -11,7 +11,7 @@ body{
  background:radial-gradient(circle at 15% 5%,rgba(118,80,232,.25),transparent 34%),
  radial-gradient(circle at 90% 85%,rgba(169,140,255,.13),transparent 35%),
  linear-gradient(145deg,#050509,#10091b 48%,#06060a);
- background-attachment:fixed;color:#fff;min-height:100vh;padding:15px;padding-bottom:85px;max-width:480px;margin:auto
+ background-attachment:fixed;color:#fff;min-height:100vh;padding:15px;padding-bottom:78px;max-width:480px;margin:auto
 }
 button{cursor:pointer}
 .header{display:flex;align-items:center;justify-content:space-between;padding:9px 0 15px}
@@ -23,7 +23,7 @@ button{cursor:pointer}
 .sidebar{position:fixed;z-index:1001;top:0;left:-290px;width:280px;height:100%;background:#110d1d;border-right:1px solid var(--line);transition:.3s;padding-top:18px;box-shadow:8px 0 30px #000}
 .sidebar.open{left:0}
 .close-btn{position:absolute;right:16px;top:10px;font-size:27px;color:#aaa}
-.profile-section{text-align:center;padding:25px 15px 18px;border-bottom:1px solid var(--line)}
+.profile-section{text-align:center;padding:25px 15px 18px;border-bottom:1px solid var(--line);cursor:pointer}
 .profile-img{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;margin:auto auto 9px;font-size:25px}
 .profile-name{font-weight:700}.profile-email{font-size:11px;color:var(--muted);margin-top:3px}
 .sidebar a{display:block;color:#ddd;text-decoration:none;padding:14px 20px;border-bottom:1px solid #1d1730;font-size:14px}
@@ -53,14 +53,10 @@ button{cursor:pointer}
 .seller{font-size:10px;color:#aaa;margin-top:10px}
 .buy{width:100%;margin-top:12px}
 .empty{text-align:center;padding:28px;color:#898396;border:1px dashed #302651;border-radius:15px}
-
 .modal{display:none;position:fixed;inset:0;z-index:2000;background:#000b;align-items:flex-end;justify-content:center}
 .modal.show{display:flex}
 .modal-box{width:min(480px,100%);background:#110d1d;border:1px solid #302553;border-radius:22px 22px 0 0;padding:20px;max-height:90vh;overflow:auto}
-
-/* Proper Full Page Profile View */
-.modal-box.profile-page{height:100vh;max-height:100vh;border-radius:0;border:none}
-
+.modal-box.full-page{height:100vh;max-height:100vh;border-radius:0;border:none}
 .modal-title{font-size:19px;font-weight:800;margin-bottom:15px}
 .close-modal{float:right;background:none;border:0;color:#aaa;font-size:23px}
 label{display:block;font-size:11px;color:#aaa;margin:11px 0 5px}
@@ -71,14 +67,11 @@ input:focus,select:focus{border-color:#7650e8}
 .deal-status{display:inline-block;padding:5px 8px;border-radius:7px;background:#2a2050;color:#cbbdff;font-size:10px;margin-top:8px}
 .admin-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .admin-actions button{font-size:10px;padding:7px 9px;border-radius:8px;border:1px solid #40336d;background:#211a38;color:#fff}
-
-/* Original Bottom Nav Style */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:#0d0a16;border-top:1px solid #292047;display:flex;justify-content:space-around;padding:10px 0;z-index:900}
-.nav-item{color:#8f8a9e;font-size:10px;text-align:center;text-decoration:none;cursor:pointer}
-.nav-item.active{color:#9d80ff}
-
-.toast{position:fixed;z-index:3000;left:50%;bottom:85px;transform:translateX(-50%) translateY(20px);background:#20173a;border:1px solid #49357d;padding:10px 14px;border-radius:10px;font-size:11px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:linear-gradient(180deg,#0d0a16f5,#07060bf8);border-top:1px solid #292047;display:flex;justify-content:space-around;padding:9px 0 10px;z-index:900;backdrop-filter:blur(12px)}
+.nav-item{color:#8f8a9e;font-size:10px;text-align:center;cursor:pointer}.nav-item div:first-child{font-size:17px;margin-bottom:2px}.nav-item.active{color:#9d80ff}
+.toast{position:fixed;z-index:3000;left:50%;bottom:75px;transform:translateX(-50%) translateY(20px);background:#20173a;border:1px solid #49357d;padding:10px 14px;border-radius:10px;font-size:11px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
@@ -91,7 +84,7 @@ input:focus,select:focus{border-color:#7650e8}
 
 <aside id="sidebar" class="sidebar">
  <button class="close-btn" onclick="closeNav()">×</button>
- <div class="profile-section" onclick="openProfile();closeNav()" style="cursor:pointer">
+ <div class="profile-section" onclick="openProfile();closeNav()">
   <div class="profile-img">👑</div>
   <div class="profile-name" id="displayProfileName">User Profile</div>
   <div class="profile-email" id="displayProfileUsername">@username</div>
@@ -131,33 +124,26 @@ input:focus,select:focus{border-color:#7650e8}
 <div id="count" class="count">0 listings</div>
 <div id="listings"></div>
 
-<!-- Profile Modal Transformed into Proper Full Screen Page -->
+<!-- Profile Modal (Full Page View) -->
 <div id="profileModal" class="modal">
- <div class="modal-box profile-page">
+ <div class="modal-box full-page">
   <button class="close-modal" onclick="closeModal('profileModal')">×</button>
-  <div class="modal-title">👤 Profile Page</div>
-  
+  <div class="modal-title">👤 User Profile</div>
   <div style="text-align:center;margin:20px 0;">
     <div class="profile-img" style="width:80px;height:80px;font-size:35px;">👑</div>
     <h3 id="profHeadName" style="margin-top:10px;">User Profile</h3>
     <p id="profHeadUser" style="color:var(--muted);font-size:12px;">@username</p>
   </div>
-
   <label>Full Name</label>
   <input id="profName" placeholder="Enter Full Name">
-  
   <label>Username</label>
   <input id="profUsername" placeholder="Enter Username">
-  
   <label>Email Address</label>
   <input id="profEmail" type="email" placeholder="Enter Email">
-  
   <label>Phone Number</label>
   <input id="profPhone" type="tel" placeholder="Enter Phone Number">
-  
   <label>Password</label>
   <input id="profPassword" type="password" placeholder="Enter New Password">
-  
   <button class="btn full" onclick="saveProfile()" style="margin-top:25px;padding:14px;">Save Profile Details</button>
  </div>
 </div>
@@ -212,13 +198,12 @@ input:focus,select:focus{border-color:#7650e8}
 
 <div id="toast" class="toast"></div>
 
-<!-- Original Bottom Navigation Bar -->
 <nav class="bottom-nav">
- <div class="nav-item active" onclick="setActiveNav(this);window.scrollTo({top:0,behavior:'smooth'})">🏪 Market</div>
- <div class="nav-item" onclick="setActiveNav(this);showDeals()">💬 Chat</div>
- <div class="nav-item" onclick="setActiveNav(this);openAdmin()">🛡️ Admin</div>
- <div class="nav-item" onclick="setActiveNav(this);showDeals()">📊 Orders</div>
- <div class="nav-item" onclick="setActiveNav(this);openProfile()">👤 Profile</div>
+ <div class="nav-item active" onclick="setActiveNav(this);window.scrollTo({top:0,behavior:'smooth'})"><div>🏪</div>Market</div>
+ <div class="nav-item" onclick="setActiveNav(this);showDeals()"><div>💬</div>Chat</div>
+ <div class="nav-item" onclick="setActiveNav(this);openAdmin()"><div>🛡️</div>Admin</div>
+ <div class="nav-item" onclick="setActiveNav(this);showDeals()"><div>📊</div>Orders</div>
+ <div class="nav-item" onclick="setActiveNav(this);openProfile()"><div>👤</div>Profile</div>
 </nav>
 
 <script>
@@ -370,10 +355,10 @@ function renderAdmin(){
   <div class="admin-actions">
    <button onclick="setDeal('${d.id}','Buyer + Seller Connected')">Connect</button>
    <button onclick="setDeal('${d.id}','In Progress')">In Progress</button>
-   <button onclick="setDeal('${d.id}','Complete')">Complete</button>
+   <button onclick="setDeal('${d.id}','Completed')">Complete</button>
   </div>
  </div>`).join('');
 }
 function setDeal(id,status){
  const d=deals.find(x=>x.id===id);if(!d)return;
- d.status=status;save();renderAdmin();to
+ d.status=status;save()
