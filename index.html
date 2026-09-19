@@ -1,4 +1,4 @@
-html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -60,7 +60,7 @@ button{cursor:pointer}
 .modal-title{font-size:19px;font-weight:800;margin-bottom:15px}
 .close-modal{float:right;background:none;border:0;color:#aaa;font-size:23px}
 label{display:block;font-size:11px;color:#aaa;margin:11px 0 5px}
-input,select{width:100%;background:#090711;color:#fff;border:1px solid #33275a;border-radius:11px;padding:12px;outline:none}
+input,select{width:100%;background:#090711;color:#fff;border:1px solid #33275c;border-radius:11px;padding:12px;outline:none}
 input:focus,select:focus{border-color:#7650e8}
 .form-row{display:flex;gap:8px}.form-row>div{flex:1}
 .notice{font-size:11px;color:#aaa;background:#19132a;border:1px solid #302650;border-radius:10px;padding:10px;margin:12px 0}
@@ -71,9 +71,8 @@ input:focus,select:focus{border-color:#7650e8}
 .nav-item{color:#8f8a9e;font-size:10px;text-align:center}.nav-item div:first-child{font-size:17px;margin-bottom:2px}.nav-item.active{color:#9d80ff}
 .toast{position:fixed;z-index:3000;left:50%;bottom:75px;transform:translateX(-50%) translateY(20px);background:#20173a;border:1px solid #49357d;padding:10px 14px;border-radius:10px;font-size:11px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.hidden{display:none!important}
 
-/* Profile */
+/* ===== PROFILE PAGE - ADDED ===== */
 .profile-page{display:none;padding:5px 0 90px}
 .profile-page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .profile-page-title{font-size:21px;font-weight:800}
@@ -108,12 +107,12 @@ input:focus,select:focus{border-color:#7650e8}
   <div id="sidebarName" class="profile-name">User Profile</div>
   <div id="sidebarEmail" class="profile-email">Marketplace User</div>
  </div>
- <a href="#" onclick="showMarket();closeNav()">🏪 Market</a>
+ <a href="#" onclick="closeNav()">🏪 Market</a>
  <a href="#" onclick="openSell();closeNav()">➕ Sell / Post Listing</a>
  <a href="#" onclick="showDeals();closeNav()">📊 My Deals</a>
  <a href="#" onclick="openAdmin();closeNav()">🛡️ Admin Panel</a>
  <a href="#" onclick="showProfile();closeNav()">👤 Profile</a>
- <a href="#" onclick="toast('Settings coming soon');closeNav()">⚙️ Settings</a>
+ <a href="#" onclick="toast('Settings coming soon')">⚙️ Settings</a>
 </aside>
 <div id="overlay" class="overlay" onclick="closeNav()"></div>
 
@@ -191,9 +190,11 @@ input:focus,select:focus{border-color:#7650e8}
   <div id="adminDeals"></div>
  </div>
 </div>
-</div>
 
-<!-- Profile Page -->
+<div id="toast" class="toast"></div>
+</div><!-- end marketPage -->
+
+<!-- ===== PROFILE PAGE ===== -->
 <section id="profilePage" class="profile-page">
  <div class="profile-page-header">
   <button class="profile-back" onclick="showMarket()">← Back</button>
@@ -233,12 +234,10 @@ input:focus,select:focus{border-color:#7650e8}
   <button class="profile-save" onclick="saveProfile()">💾 Save Profile</button>
 
   <div class="profile-note">
-   Profile information isi browser mein save hogi. Real online account/login system ke liye backend/database connect karna hoga.
+   Profile information isi browser mein save hogi. Real online account/login system ke liye baad mein backend/database connect karna hoga.
   </div>
  </div>
 </section>
-
-<div id="toast" class="toast"></div>
 
 <nav class="bottom-nav">
  <div class="nav-item active" onclick="showMarket()"><div>🏪</div>Market</div>
@@ -249,7 +248,7 @@ input:focus,select:focus{border-color:#7650e8}
 </nav>
 
 <script>
-const KEY_LIST='okara_pubg_listings_v1', KEY_DEALS='okara_pubg_deals_v1', KEY_PROFILE='okaraProfile';
+const KEY_LIST='okara_pubg_listings_v1', KEY_DEALS='okara_pubg_deals_v1';
 let listings=JSON.parse(localStorage.getItem(KEY_LIST)||'null');
 let deals=JSON.parse(localStorage.getItem(KEY_DEALS)||'[]');
 let selectedListing=null, currentCategory='All';
@@ -356,4 +355,5 @@ function renderAdmin(){
   <div class="title">${esc(d.item)}</div>
   <div class="meta">Buyer: ${esc(d.buyer)}</div>
   <div class="meta">Seller: ${esc(d.seller)}</div>
-  <div class="meta">Quantity: ${Number(d.qty).toLocaleString()} · Price: Rs ${Number(d.price).toLocaleString()}</di
+  <div class="meta">Quantity: ${Number(d.qty).toLocaleString()} · Price: Rs ${Number(d.price).toLocaleString()}</div>
+  <span class="deal-st
