@@ -6,97 +6,143 @@
 <title>Okara Aele×MI Pubg Hub</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-:root{--purple:#6e44ff;--purple-light:#8b62ff;--bg:#0a0712;--card:#140e24;--card-border:#261b40;--muted:#8f88ab}
-body{
- background:radial-gradient(circle at 20% 0%,rgba(110,68,255,.2),transparent 40%),
- linear-gradient(180deg,#06040a,#0c0817 50%,#06040a);
- background-attachment:fixed;color:#fff;min-height:100vh;padding:12px;padding-bottom:80px;max-width:480px;margin:auto
+
+/* Themes Setup */
+:root {
+ --bg: #06040a;
+ --bg-gradient: radial-gradient(circle at 20% 0%,rgba(110,68,255,.2),transparent 40%), linear-gradient(180deg,#06040a,#0c0817 50%,#06040a);
+ --card: #140e24;
+ --card-border: #261b40;
+ --text: #ffffff;
+ --muted: #8f88ab;
+ --purple: #6e44ff;
+ --btn-control-bg: #160f29;
+ --input-bg: #090514;
 }
-button{cursor:pointer;border:0;outline:none}
-.header{display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px}
-.logo-box{display:flex;align-items:center;gap:10px;cursor:pointer}
-.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#6e44ff,#a382ff);border-radius:10px;display:grid;place-items:center;font-size:18px}
-.logo-text{font-weight:800;font-size:15px}
-.sub-logo{font-size:8px;color:var(--muted);letter-spacing:1px;margin-top:1px}
-.header-actions{display:flex;align-items:center;gap:12px}
-.icon-btn{background:#18112d;border:1px solid var(--card-border);width:35px;height:35px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:14px;position:relative;cursor:pointer}
-.badge-dot{position:absolute;top:2px;right:2px;background:#ff4757;color:#fff;font-size:8px;width:14px;height:14px;border-radius:50%;display:grid;place-items:center;font-weight:bold}
 
-.sidebar{position:fixed;z-index:1001;top:0;left:-290px;width:280px;height:100%;background:#0d0818;border-right:1px solid var(--card-border);transition:.3s;padding-top:18px;box-shadow:8px 0 30px #000}
-.sidebar.open{left:0}
-.close-btn{position:absolute;right:16px;top:10px;font-size:27px;color:#aaa;background:none}
-.profile-section{text-align:center;padding:25px 15px 18px;border-bottom:1px solid var(--card-border);cursor:pointer}
-.profile-img{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#6e44ff,#a382ff);display:grid;place-items:center;margin:auto auto 9px;font-size:24px}
-.sidebar a{display:block;color:#ddd;text-decoration:none;padding:14px 20px;border-bottom:1px solid #18102a;font-size:13px}
-.overlay{display:none;position:fixed;z-index:1000;inset:0;background:#000b}
+body.light-mode {
+ --bg: #f4f5f9;
+ --bg-gradient: linear-gradient(180deg,#eef1f8,#f4f5f9);
+ --card: #ffffff;
+ --card-border: #e1e4ed;
+ --text: #1a1625;
+ --muted: #6c727f;
+ --btn-control-bg: #eaedf5;
+ --input-bg: #f0f2f7;
+}
 
-/* Balance Box */
-.balance-card{display:flex;justify-content:space-between;align-items:center;margin:8px 0 16px}
-.balance-title{font-size:11px;color:var(--muted)}
-.balance-amount{font-size:26px;font-weight:800;margin-top:2px}
-.btn-add{background:linear-gradient(135deg,#6e44ff,#8b62ff);color:#fff;font-weight:700;padding:10px 18px;border-radius:12px;font-size:13px}
+body {
+ background: var(--bg-gradient);
+ background-attachment: fixed;
+ color: var(--text);
+ min-height: 100vh;
+ padding: 12px;
+ padding-bottom: 80px;
+ max-width: 480px;
+ margin: auto;
+ transition: background 0.3s, color 0.3s;
+}
+
+button { cursor: pointer; border: 0; outline: none; }
+
+/* Header */
+.header { display: flex; align-items: center; justify-content: space-between; padding: 8px 0 16px; }
+.logo-box { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg,#6e44ff,#a382ff); border-radius: 10px; display: grid; place-items: center; font-size: 18px; color:#fff; }
+.logo-text { font-weight: 800; font-size: 15px; }
+.sub-logo { font-size: 8px; color: var(--muted); letter-spacing: 1px; margin-top: 1px; }
+.header-actions { display: flex; align-items: center; gap: 12px; }
+.icon-btn { background: var(--btn-control-bg); border: 1px solid var(--card-border); width: 35px; height: 35px; border-radius: 50%; display: grid; place-items: center; color: var(--text); font-size: 14px; position: relative; cursor: pointer; }
+.badge-dot { position: absolute; top: 2px; right: 2px; background: #ff4757; color: #fff; font-size: 8px; width: 14px; height: 14px; border-radius: 50%; display: grid; place-items: center; font-weight: bold; }
+
+/* Sidebar */
+.sidebar { position: fixed; z-index: 1001; top: 0; left: -290px; width: 280px; height: 100%; background: var(--card); border-right: 1px solid var(--card-border); transition: .3s; padding-top: 18px; box-shadow: 8px 0 30px #0005; }
+.sidebar.open { left: 0; }
+.close-btn { position: absolute; right: 16px; top: 10px; font-size: 27px; color: var(--muted); background: none; }
+.profile-section { text-align: center; padding: 25px 15px 18px; border-bottom: 1px solid var(--card-border); cursor: pointer; }
+.profile-img { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg,#6e44ff,#a382ff); display: grid; place-items: center; margin: auto auto 9px; font-size: 24px; color:#fff; }
+.sidebar a { display: block; color: var(--text); text-decoration: none; padding: 14px 20px; border-bottom: 1px solid var(--card-border); font-size: 13px; }
+.overlay { display: none; position: fixed; z-index: 1000; inset: 0; background: #0008; }
+
+/* Balance Card */
+.balance-card { display: flex; justify-content: space-between; align-items: center; margin: 8px 0 16px; }
+.balance-title { font-size: 11px; color: var(--muted); }
+.balance-amount { font-size: 26px; font-weight: 800; margin-top: 2px; }
+.btn-add { background: linear-gradient(135deg,#6e44ff,#8b62ff); color: #fff; font-weight: 700; padding: 10px 18px; border-radius: 12px; font-size: 13px; }
 
 /* Controls Grid */
-.control-row{display:flex;gap:8px;margin-bottom:10px}
-.btn-control{flex:1;background:#160f29;border:1px solid var(--card-border);color:#fff;padding:10px 12px;border-radius:12px;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
+.control-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.btn-control { flex: 1; background: var(--btn-control-bg); border: 1px solid var(--card-border); color: var(--text); padding: 10px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
 /* Online Toggle Button */
-.toggle-box{flex:1;background:#160f29;border:1px solid var(--card-border);padding:4px 8px;border-radius:20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:.2s}
-.switch-btn{width:26px;height:26px;background:#fff;border-radius:50%;transition:.3s;transform:translateX(0)}
-.toggle-status{font-size:12px;font-weight:700;color:#aaa;margin-right:10px}
+.toggle-box { flex: 1; background: var(--btn-control-bg); border: 1px solid var(--card-border); padding: 4px 8px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: .2s; }
+.switch-btn { width: 26px; height: 26px; background: #fff; border-radius: 50%; transition: .3s; transform: translateX(0); box-shadow: 0 2px 5px #0003; }
+.toggle-status { font-size: 12px; font-weight: 700; color: var(--muted); margin-right: 10px; }
 
-.toggle-box.online-active{background:#0e331c;border-color:#1e6b3b}
-.toggle-box.online-active .switch-btn{transform:translateX(100px);background:#2ed573;box-shadow:0 0 10px #2ed573}
-.toggle-box.online-active .toggle-status{color:#2ed573}
+.toggle-box.online-active { background: #0e331c; border-color: #1e6b3b; }
+.toggle-box.online-active .switch-btn { transform: translateX(100px); background: #2ed573; box-shadow: 0 0 10px #2ed573; }
+.toggle-box.online-active .toggle-status { color: #2ed573; }
 
-.btn-post{width:100%;background:linear-gradient(135deg,#6e44ff,#8b62ff);color:#fff;font-weight:700;padding:12px;border-radius:12px;font-size:14px;margin:4px 0 16px}
+.btn-post { width: 100%; background: linear-gradient(135deg,#6e44ff,#8b62ff); color: #fff; font-weight: 700; padding: 12px; border-radius: 12px; font-size: 14px; margin: 4px 0 16px; }
 
 /* Categories */
-.categories{display:flex;gap:8px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px}
-.chip{white-space:nowrap;border:1px solid var(--card-border);background:#160f29;color:#ccc;border-radius:20px;padding:8px 16px;font-size:12px;font-weight:600}
-.chip.active{background:#6e44ff;border-color:#6e44ff;color:#fff}
-.count{font-size:12px;color:var(--muted);margin-bottom:12px}
+.categories { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 14px; padding-bottom: 4px; }
+.chip { white-space: nowrap; border: 1px solid var(--card-border); background: var(--btn-control-bg); color: var(--text); border-radius: 20px; padding: 8px 16px; font-size: 12px; font-weight: 600; }
+.chip.active { background: var(--purple); border-color: var(--purple); color: #fff; }
+.count { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
 
 /* Listings Card */
-.card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:14px;margin-bottom:12px}
-.card-header{display:flex;gap:12px;margin-bottom:8px}
-.item-icon{width:42px;height:42px;border-radius:12px;background:#1d1336;border:1px solid #312159;display:grid;place-items:center;font-size:20px;flex-shrink:0}
-.item-category{font-size:9px;color:var(--muted);letter-spacing:.8px;text-transform:uppercase}
-.item-title{font-size:15px;font-weight:800;margin-top:1px}
-.item-id{font-size:10px;color:var(--muted);margin-top:2px}
-.price-tag{text-align:right;margin-left:auto}
-.price-val{font-size:18px;font-weight:800}
-.price-sub{font-size:10px;color:var(--muted)}
+.card { background: var(--card); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px; margin-bottom: 12px; }
+.card-header { display: flex; gap: 12px; margin-bottom: 8px; }
+.item-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--btn-control-bg); border: 1px solid var(--card-border); display: grid; place-items: center; font-size: 20px; flex-shrink: 0; }
+.item-category { font-size: 9px; color: var(--muted); letter-spacing: .8px; text-transform: uppercase; }
+.item-title { font-size: 15px; font-weight: 800; margin-top: 1px; }
+.item-id { font-size: 10px; color: var(--muted); margin-top: 2px; }
+.price-tag { text-align: right; margin-left: auto; }
+.price-val { font-size: 18px; font-weight: 800; }
+.price-sub { font-size: 10px; color: var(--muted); }
 
-.seller-info{font-size:11px;color:#ddd;margin:10px 0 8px;display:flex;align-items:center;gap:6px;font-weight:700}
-.seller-sub{font-size:10px;color:var(--muted);margin-bottom:8px}
+.seller-info { font-size: 11px; color: var(--text); margin: 10px 0 8px; display: flex; align-items: center; gap: 6px; font-weight: 700; }
+.seller-sub { font-size: 10px; color: var(--muted); margin-bottom: 8px; }
 
-.badges-container{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
-.badge-item{font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;display:inline-flex;align-items:center;gap:4px}
-.bg-top-rated{background:#4d3800;color:#ffc107;border:1px solid #735400}
-.bg-cash-ex{background:#3b2a00;color:#ffd700;border:1px solid #5e4300}
-.bg-trusted{background:#113322;color:#2ed573;border:1px solid #1b5237}
-.bg-best-seller{background:#3a2000;color:#ffa500;border:1px solid #593200}
+.badges-container { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; }
+.badge-item { font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px; }
+.bg-top-rated { background: #4d3800; color: #ffc107; border: 1px solid #735400; }
+.bg-cash-ex { background: #3b2a00; color: #ffd700; border: 1px solid #5e4300; }
+.bg-trusted { background: #113322; color: #2ed573; border: 1px solid #1b5237; }
+.bg-best-seller { background: #3a2000; color: #ffa500; border: 1px solid #593200; }
 
-.btn-buy{background:#6e44ff;color:#fff;font-weight:700;padding:8px 22px;border-radius:10px;font-size:13px;float:right}
+.btn-buy { background: var(--purple); color: #fff; font-weight: 700; padding: 8px 22px; border-radius: 10px; font-size: 13px; float: right; }
 
 /* Modal */
-.modal{display:none;position:fixed;inset:0;z-index:2000;background:#000b;align-items:flex-end;justify-content:center}
-.modal.show{display:flex}
-.modal-box{width:min(480px,100%);background:#100a1f;border:1px solid var(--card-border);border-radius:20px 20px 0 0;padding:18px;max-height:90vh;overflow:auto}
-label{display:block;font-size:11px;color:var(--muted);margin:10px 0 4px}
-input,select{width:100%;background:#090514;color:#fff;border:1px solid var(--card-border);border-radius:10px;padding:10px;outline:none}
+.modal { display: none; position: fixed; inset: 0; z-index: 2000; background: #0008; align-items: flex-end; justify-content: center; }
+.modal.show { display: flex; }
+.modal-box { width: min(480px,100%); background: var(--card); border: 1px solid var(--card-border); border-radius: 20px 20px 0 0; padding: 18px; max-height: 90vh; overflow: auto; color: var(--text); }
+label { display: block; font-size: 11px; color: var(--muted); margin: 10px 0 4px; }
+input, select { width: 100%; background: var(--input-bg); color: var(--text); border: 1px solid var(--card-border); border-radius: 10px; padding: 10px; outline: none; }
 
-.btn-login{background:#2ed573;color:#000;font-weight:700;padding:10px;border-radius:10px;width:100%;margin-top:12px}
-.btn-logout{background:#ff4757;color:#fff;font-weight:700;padding:10px;border-radius:10px;width:100%;margin-top:8px}
+.auth-tabs { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; }
+.auth-tab { flex: 1; text-align: center; padding: 8px; font-weight: 700; color: var(--muted); cursor: pointer; font-size: 13px; }
+.auth-tab.active { color: var(--purple); border-bottom: 2px solid var(--purple); }
 
-/* Navigation */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:#0a0614e6;border-top:1px solid var(--card-border);display:flex;justify-content:space-around;padding:8px 0;z-index:900;backdrop-filter:blur(10px)}
-.nav-item{color:var(--muted);font-size:10px;text-align:center;cursor:pointer}.nav-item div:first-child{font-size:16px;margin-bottom:2px}.nav-item.active{color:#8b62ff}
+.profile-card-details { background: var(--btn-control-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 15px; margin: 15px 0; }
+.profile-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--card-border); font-size: 12px; }
+.profile-row:last-child { border-bottom: none; }
+.profile-row span:first-child { color: var(--muted); }
+.profile-row span:last-child { font-weight: 700; }
 
-.toast{position:fixed;z-index:3000;left:50%;bottom:70px;transform:translateX(-50%) translateY(20px);background:#1a1230;border:1px solid var(--card-border);padding:8px 14px;border-radius:8px;font-size:11px;opacity:0;pointer-events:none;transition:.2s;white-space:nowrap}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.page-section{display:none}.page-section.active{display:block}
+.btn-logout { background: #ff4757; color: #fff; font-weight: 700; padding: 10px; border-radius: 10px; width: 100%; margin-top: 15px; }
+
+/* Bottom Nav */
+.bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: min(480px,100%); background: var(--card); border-top: 1px solid var(--card-border); display: flex; justify-content: space-around; padding: 8px 0; z-index: 900; backdrop-filter: blur(10px); }
+.nav-item { color: var(--muted); font-size: 10px; text-align: center; cursor: pointer; }
+.nav-item div:first-child { font-size: 16px; margin-bottom: 2px; }
+.nav-item.active { color: var(--purple); }
+
+.toast { position: fixed; z-index: 3000; left: 50%; bottom: 70px; transform: translateX(-50%) translateY(20px); background: var(--card); border: 1px solid var(--card-border); color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 11px; opacity: 0; pointer-events: none; transition: .2s; white-space: nowrap; box-shadow: 0 4px 15px #0003; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.page-section { display: none; }
+.page-section.active { display: block; }
 </style>
 </head>
 <body>
@@ -110,7 +156,7 @@ input,select{width:100%;background:#090514;color:#fff;border:1px solid var(--car
   </div>
  </div>
  <div class="header-actions">
-  <div class="icon-btn" onclick="toast('Theme Mode')">☀️</div>
+  <div class="icon-btn" id="themeBtn" onclick="toggleTheme()">☀️</div>
   <div class="icon-btn" onclick="toast('Notifications')">🔔<div class="badge-dot">1</div></div>
   <div class="icon-btn" onclick="openProfileModal()">👤</div>
  </div>
@@ -120,8 +166,8 @@ input,select{width:100%;background:#090514;color:#fff;border:1px solid var(--car
  <button class="close-btn" onclick="closeNav()">×</button>
  <div class="profile-section" onclick="openProfileModal();closeNav()">
   <div class="profile-img">👑</div>
-  <div style="font-weight:700" id="sbName">Okara Aele</div>
-  <div style="font-size:11px;color:var(--muted)" id="sbUser">@OkaraAele</div>
+  <div style="font-weight:700" id="sbName">Guest User</div>
+  <div style="font-size:11px;color:var(--muted)" id="sbUser">Not Logged In</div>
  </div>
  <a href="#" onclick="showSection('marketView');closeNav()">🏪 Market</a>
  <a href="#" onclick="openSell();closeNav()">➕ Post Listing</a>
@@ -168,43 +214,84 @@ input,select{width:100%;background:#090514;color:#fff;border:1px solid var(--car
  <div id="listings"></div>
 </div>
 
-<!-- PROFILE MODAL -->
+<!-- PROFILE / AUTH MODAL -->
 <div id="profileModal" class="modal">
  <div class="modal-box">
-  <button style="float:right;background:none;color:#aaa;font-size:20px" onclick="closeModal('profileModal')">×</button>
-  <h3>User Profile Settings</h3>
+  <button style="float:right;background:none;color:var(--muted);font-size:20px" onclick="closeModal('profileModal')">×</button>
   
-  <div style="text-align:center;margin:15px 0">
-   <div class="profile-img" style="margin:auto">👑</div>
-   <h4 id="profDispName" style="margin-top:6px">Okara Aele</h4>
-   <p id="profDispUser" style="font-size:11px;color:var(--muted)">@OkaraAele</p>
+  <!-- STATE 1: UNAUTHENTICATED (LOGIN / REGISTER) -->
+  <div id="authView">
+   <div class="auth-tabs">
+    <div id="tabCreate" class="auth-tab active" onclick="switchAuthTab('create')">Create Account</div>
+    <div id="tabLogin" class="auth-tab" onclick="switchAuthTab('login')">Login</div>
+   </div>
+
+   <!-- FORM: CREATE ACCOUNT -->
+   <div id="formCreate">
+    <label>Full Name</label>
+    <input id="regName" placeholder="Enter Name">
+
+    <label>Username</label>
+    <input id="regUser" placeholder="Enter Username">
+
+    <label>Email Address</label>
+    <input id="regEmail" type="email" placeholder="Enter Email">
+
+    <label>Phone Number</label>
+    <input id="regPhone" type="tel" placeholder="Enter Phone Number">
+
+    <label>Password</label>
+    <input id="regPass" type="password" placeholder="Enter Password">
+
+    <button class="btn-post" style="margin-top:15px" onclick="createAccount()">Create Account</button>
+   </div>
+
+   <!-- FORM: LOGIN -->
+   <div id="formLogin" style="display:none">
+    <label>Email or Username</label>
+    <input id="loginUser" placeholder="Enter Email or Username">
+
+    <label>Password</label>
+    <input id="loginPass" type="password" placeholder="Enter Password">
+
+    <button class="btn-post" style="margin-top:15px" onclick="loginUser()">Login</button>
+   </div>
   </div>
 
-  <label>Full Name</label>
-  <input id="profName" placeholder="Enter Name">
+  <!-- STATE 2: LOGGED IN USER PROFILE -->
+  <div id="profileView" style="display:none">
+   <h3>My Profile</h3>
+   <div style="text-align:center;margin:15px 0">
+    <div class="profile-img" style="margin:auto">👑</div>
+    <h4 id="profDispName" style="margin-top:6px">--</h4>
+    <p id="profDispUser" style="font-size:11px;color:var(--muted)">@--</p>
+   </div>
 
-  <label>Username</label>
-  <input id="profUser" placeholder="Enter Username">
+   <div class="profile-card-details">
+    <div class="profile-row">
+     <span>Full Name:</span>
+     <span id="profValName">--</span>
+    </div>
+    <div class="profile-row">
+     <span>Username:</span>
+     <span id="profValUser">--</span>
+    </div>
+    <div class="profile-row">
+     <span>Email Address:</span>
+     <span id="profValEmail">--</span>
+    </div>
+   </div>
 
-  <label>Email Address</label>
-  <input id="profEmail" type="email" placeholder="Enter Email">
+   <button class="btn-logout" onclick="logoutUser()">Log Out</button>
+  </div>
 
-  <label>Phone Number</label>
-  <input id="profPhone" type="tel" placeholder="Enter Phone Number">
-
-  <label>Password</label>
-  <input id="profPass" type="password" placeholder="Enter Password">
-
-  <button class="btn-post" style="margin-top:15px" onclick="saveProfileData()">Save Profile</button>
-  <button class="btn-login" onclick="loginUser()">Login</button>
-  <button class="btn-logout" onclick="logoutUser()">Logout</button>
  </div>
 </div>
 
 <!-- SELL MODAL -->
 <div id="sellModal" class="modal">
  <div class="modal-box">
-  <button style="float:right;background:none;color:#aaa;font-size:20px" onclick="closeModal('sellModal')">×</button>
+  <button style="float:right;background:none;color:var(--muted);font-size:20px" onclick="closeModal('sellModal')">×</button>
   <h3>Post Listing</h3>
   <label>Item Name</label><input id="itemName" placeholder="e.g. Wallet Topup / UC">
   <label>Category</label>
@@ -217,7 +304,7 @@ input,select{width:100%;background:#090514;color:#fff;border:1px solid var(--car
 <!-- BUY MODAL -->
 <div id="buyModal" class="modal">
  <div class="modal-box">
-  <button style="float:right;background:none;color:#aaa;font-size:20px" onclick="closeModal('buyModal')">×</button>
+  <button style="float:right;background:none;color:var(--muted);font-size:20px" onclick="closeModal('buyModal')">×</button>
   <h3>Confirm Order</h3>
   <div id="buyInfo" style="margin:12px 0"></div>
   <button class="btn-post" onclick="confirmBuy()">Confirm Buy & Chat Admin</button>
@@ -225,10 +312,10 @@ input,select{width:100%;background:#090514;color:#fff;border:1px solid var(--car
 </div>
 
 <!-- DEALS MODAL -->
-<div id="dealsModal" class="modal"><div class="modal-box"><button style="float:right;background:none;color:#aaa" onclick="closeModal('dealsModal')">×</button><h3>My Deals</h3><div id="dealsList"></div></div></div>
+<div id="dealsModal" class="modal"><div class="modal-box"><button style="float:right;background:none;color:var(--muted)" onclick="closeModal('dealsModal')">×</button><h3>My Deals</h3><div id="dealsList"></div></div></div>
 
 <!-- ADMIN MODAL -->
-<div id="adminModal" class="modal"><div class="modal-box"><button style="float:right;background:none;color:#aaa" onclick="closeModal('adminModal')">×</button><h3>Admin Panel</h3><div id="adminDeals"></div></div></div>
+<div id="adminModal" class="modal"><div class="modal-box"><button style="float:right;background:none;color:var(--muted)" onclick="closeModal('adminModal')">×</button><h3>Admin Panel</h3><div id="adminDeals"></div></div></div>
 
 <div id="toast" class="toast"></div>
 
@@ -241,10 +328,10 @@ input,select{width:100%;background:#090514;color:#fff;border:1px solid var(--car
 </nav>
 
 <script>
-const KEY_LIST='okara_listings_v4', KEY_USER='okara_user_v4', KEY_DEALS='okara_deals_v4';
-let listings=JSON.parse(localStorage.getItem(KEY_LIST)||'null');
-let deals=JSON.parse(localStorage.getItem(KEY_DEALS)||'[]');
-let user=JSON.parse(localStorage.getItem(KEY_USER)||'{"name":"Okara Aele","username":"OkaraAele","email":"admin@okara.com","phone":"03000000000","pass":"123456"}');
+const KEY_LIST='okara_listings_v5', KEY_USER='okara_active_user_v5', KEY_THEME='okara_theme_v5';
+let listings = JSON.parse(localStorage.getItem(KEY_LIST) || 'null');
+let currentUser = JSON.parse(localStorage.getItem(KEY_USER) || 'null');
+let isDarkTheme = localStorage.getItem(KEY_THEME) !== 'light';
 
 let selectedListing=null, currentCategory='All', isOnline=false;
 
@@ -253,117 +340,67 @@ if(!listings){
   {id:1,cat:'ITEMS',title:'Rs-1k ▪Wallet Topup',code:'#38C807D6',desc:'TopUp Okara app wallet cash charges 1%',price:1010,left:150,seller:'OKARA AELE OWNER',isNew:true},
   {id:2,cat:'POPULARITY',title:'100m to 1Billion Popularity',code:'#99A102D1',desc:'Instant delivery guaranteed by admin',price:1000,left:1000000000,seller:'OKARA AELE OWNER',isNew:false}
  ];
- save();
+ saveListings();
 }
 
-function save(){
- localStorage.setItem(KEY_LIST,JSON.stringify(listings));
- localStorage.setItem(KEY_DEALS,JSON.stringify(deals));
- localStorage.setItem(KEY_USER,JSON.stringify(user));
-}
+function saveListings(){ localStorage.setItem(KEY_LIST, JSON.stringify(listings)); }
+function saveUser(){ localStorage.setItem(KEY_USER, JSON.stringify(currentUser)); }
 
-function loadProfileFields(){
- document.getElementById('profName').value = user.name || '';
- document.getElementById('profUser').value = user.username || '';
- document.getElementById('profEmail').value = user.email || '';
- document.getElementById('profPhone').value = user.phone || '';
- document.getElementById('profPass').value = user.pass || '';
- 
- document.getElementById('profDispName').textContent = user.name || 'Okara Aele';
- document.getElementById('profDispUser').textContent = '@' + (user.username || 'OkaraAele');
- document.getElementById('sbName').textContent = user.name || 'Okara Aele';
- document.getElementById('sbUser').textContent = '@' + (user.username || 'OkaraAele');
-}
-
-function saveProfileData(){
- user.name = document.getElementById('profName').value;
- user.username = document.getElementById('profUser').value;
- user.email = document.getElementById('profEmail').value;
- user.phone = document.getElementById('profPhone').value;
- user.pass = document.getElementById('profPass').value;
- save();
- loadProfileFields();
- toast('Profile Saved!');
- closeModal('profileModal');
-}
-
-function loginUser(){
- toast('Logged in successfully!');
- closeModal('profileModal');
-}
-
-function logoutUser(){
- toast('Logged out!');
- closeModal('profileModal');
-}
-
-function toggleOnlineStatus(){
- isOnline = !isOnline;
- const btn = document.getElementById('onlineToggleBtn');
- const txt = document.getElementById('toggleText');
- 
- if(isOnline){
-  btn.classList.add('online-active');
-  txt.textContent = 'Online';
-  toast('Status: Online');
+/* Theme Handler */
+function applyTheme(){
+ if(isDarkTheme){
+  document.body.classList.remove('light-mode');
+  document.getElementById('themeBtn').textContent = '☀️';
  } else {
-  btn.classList.remove('online-active');
-  txt.textContent = 'Offline';
-  toast('Status: Offline');
+  document.body.classList.add('light-mode');
+  document.getElementById('themeBtn').textContent = '🌙';
+ }
+ localStorage.setItem(KEY_THEME, isDarkTheme ? 'dark' : 'light');
+}
+
+function toggleTheme(){
+ isDarkTheme = !isDarkTheme;
+ applyTheme();
+ toast(isDarkTheme ? 'Night Mode Active' : 'Day Mode Active');
+}
+
+/* Auth & Profile logic */
+function updateProfileUI(){
+ if(currentUser){
+  document.getElementById('authView').style.display = 'none';
+  document.getElementById('profileView').style.display = 'block';
+  
+  document.getElementById('profDispName').textContent = currentUser.name;
+  document.getElementById('profDispUser').textContent = '@' + currentUser.username;
+  document.getElementById('profValName').textContent = currentUser.name;
+  document.getElementById('profValUser').textContent = currentUser.username;
+  document.getElementById('profValEmail').textContent = currentUser.email;
+
+  document.getElementById('sbName').textContent = currentUser.name;
+  document.getElementById('sbUser').textContent = '@' + currentUser.username;
+ } else {
+  document.getElementById('authView').style.display = 'block';
+  document.getElementById('profileView').style.display = 'none';
+
+  document.getElementById('sbName').textContent = 'Guest User';
+  document.getElementById('sbUser').textContent = 'Not Logged In';
  }
 }
 
-function render(){
- const box=document.getElementById('listings');
- const data=currentCategory==='All'?listings:listings.filter(x=>x.cat===currentCategory);
- box.innerHTML=data.map(x=>`
- <div class="card">
-  <div class="card-header">
-   <div class="item-icon">${x.cat==='ITEMS'?'📦':x.cat==='POPULARITY'?'📈':'🪙'}</div>
-   <div>
-    <div class="item-category">${x.cat}</div>
-    <div class="item-title">${x.title}</div>
-    <div class="item-id">${x.code||'#000000'}</div>
-   </div>
-   <div class="price-tag">
-    <div class="price-val">Rs ${x.price.toLocaleString()}</div>
-    <div class="price-sub">${x.left?x.left+' left':''}</div>
-   </div>
-  </div>
-  <div style="font-size:11px;color:var(--muted);margin-bottom:6px">${x.desc||''}</div>
-  <div class="seller-info">👤 👑 ${x.seller}</div>
-  ${x.isNew ? '<div class="seller-sub">New seller</div>' : ''}
-  
-  <div class="badges-container">
-   <span class="badge-item bg-top-rated">🏆 Top Rated Seller</span>
-   <span class="badge-item bg-cash-ex">✨ App Cash exchange</span>
-   <span class="badge-item bg-trusted">🛡️ Most Trusted</span>
-   <span class="badge-item bg-best-seller">👑 Best Seller +1</span>
-  </div>
-
-  <div style="overflow:hidden">
-   <button class="btn-buy" onclick="startBuy(${x.id})">Buy</button>
-  </div>
- </div>`).join('');
+function switchAuthTab(type){
+ if(type==='create'){
+  document.getElementById('tabCreate').classList.add('active');
+  document.getElementById('tabLogin').classList.remove('active');
+  document.getElementById('formCreate').style.display = 'block';
+  document.getElementById('formLogin').style.display = 'none';
+ } else {
+  document.getElementById('tabLogin').classList.add('active');
+  document.getElementById('tabCreate').classList.remove('active');
+  document.getElementById('formLogin').style.display = 'block';
+  document.getElementById('formCreate').style.display = 'none';
+ }
 }
 
-function openProfileModal(){ loadProfileFields(); document.getElementById('profileModal').classList.add('show'); }
-function startBuy(id){ selectedListing=listings.find(x=>x.id===id); if(!selectedListing)return; document.getElementById('buyInfo').innerHTML=`<b>${selectedListing.title}</b><br>Price: Rs ${selectedListing.price}`; document.getElementById('buyModal').classList.add('show'); }
-function confirmBuy(){ if(!selectedListing)return; deals.push({id:'D'+Date.now(),item:selectedListing.title,price:selectedListing.price,status:'Admin Processing'}); save();closeModal('buyModal');toast('Order Placed Successfully!'); }
-function postListing(){ const name=document.getElementById('itemName').value; const cat=document.getElementById('itemCat').value; const price=Number(document.getElementById('itemPrice').value); if(!name||!price)return; listings.push({id:Date.now(),cat:cat,title:name,code:'#'+Math.floor(Math.random()*16777215).toString(16),desc:'Verified Listing',price:price,left:10,seller:'OKARA AELE OWNER',isNew:true}); save();render();closeModal('sellModal');toast('Post Published!'); }
-function filterCat(cat,el){ currentCategory=cat; document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); el.classList.add('active'); render(); }
-function openNav(){sidebar.classList.add('open');overlay.style.display='block'}
-function closeNav(){sidebar.classList.remove('open');overlay.style.display='none'}
-function openSell(){document.getElementById('sellModal').classList.add('show')}
-function closeModal(id){document.getElementById(id).classList.remove('show')}
-function showSection(id){document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
-function setActiveNav(el){document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));el.classList.add('active')}
-function showDeals(){document.getElementById('dealsModal').classList.add('show')}
-function openAdmin(){document.getElementById('adminModal').classList.add('show')}
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)}
-
-loadProfileFields();
-render();
-</script>
-</body>
-</html>
+function createAccount(){
+ const name = document.getElementById('regName').value.trim();
+ const user = document.getElementById('regUser').value.t
