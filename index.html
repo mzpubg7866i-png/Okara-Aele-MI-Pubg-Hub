@@ -54,11 +54,12 @@ button{cursor:pointer}
 .buy{width:100%;margin-top:12px}
 .empty{text-align:center;padding:28px;color:#898396;border:1px dashed #302651;border-radius:15px}
 
-/* Full Screen Modal Style for Profile & others */
 .modal{display:none;position:fixed;inset:0;z-index:2000;background:#000b;align-items:flex-end;justify-content:center}
 .modal.show{display:flex}
 .modal-box{width:min(480px,100%);background:#110d1d;border:1px solid #302553;border-radius:22px 22px 0 0;padding:20px;max-height:90vh;overflow:auto}
-.modal-box.full-page{height:100vh;max-height:100vh;border-radius:0;border:none}
+
+/* Profile Page Full Screen View */
+.modal-box.profile-page{height:100vh;max-height:100vh;border-radius:0;border:none}
 
 .modal-title{font-size:19px;font-weight:800;margin-bottom:15px}
 .close-modal{float:right;background:none;border:0;color:#aaa;font-size:23px}
@@ -71,24 +72,10 @@ input:focus,select:focus{border-color:#7650e8}
 .admin-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .admin-actions button{font-size:10px;padding:7px 9px;border-radius:8px;border:1px solid #40336d;background:#211a38;color:#fff}
 
-/* Fixed Bottom Navigation Bar */
-.bottom-nav{
- position:fixed;bottom:0;left:50%;transform:translateX(-50%);
- width:min(480px,100%);
- background:linear-gradient(180deg,#0d0a16f5,#07060bf8);
- border-top:1px solid #292047;
- display:flex;justify-content:space-around;align-items:center;
- padding:10px 0 12px;
- z-index:900;
- backdrop-filter:blur(12px)
-}
-.nav-item{
- color:#8f8a9e;font-size:11px;text-align:center;
- flex:1;display:flex;flex-direction:column;align-items:center;
- text-decoration:none;cursor:pointer
-}
-.nav-item .icon-text{font-size:20px;margin-bottom:3px;display:block;line-height:1}
-.nav-item.active{color:#9d80ff;font-weight:bold}
+/* Original Bottom Bar Style Retained */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:#0d0a16;border-top:1px solid #292047;display:flex;justify-content:space-around;padding:10px 0;z-index:900}
+.nav-item{color:#8f8a9e;font-size:10px;text-align:center;text-decoration:none}
+.nav-item.active{color:#9d80ff}
 
 .toast{position:fixed;z-index:3000;left:50%;bottom:85px;transform:translateX(-50%) translateY(20px);background:#20173a;border:1px solid #49357d;padding:10px 14px;border-radius:10px;font-size:11px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -144,11 +131,11 @@ input:focus,select:focus{border-color:#7650e8}
 <div id="count" class="count">0 listings</div>
 <div id="listings"></div>
 
-<!-- Profile Modal (Full Screen Page) -->
+<!-- Profile Modal Transformed into Proper Page -->
 <div id="profileModal" class="modal">
- <div class="modal-box full-page">
+ <div class="modal-box profile-page">
   <button class="close-modal" onclick="closeModal('profileModal')">×</button>
-  <div class="modal-title">👤 User Profile Settings</div>
+  <div class="modal-title">👤 Profile Page</div>
   
   <div style="text-align:center;margin:20px 0;">
     <div class="profile-img" style="width:80px;height:80px;font-size:35px;">👑</div>
@@ -225,28 +212,13 @@ input:focus,select:focus{border-color:#7650e8}
 
 <div id="toast" class="toast"></div>
 
-<!-- Properly Styled & Spaced Bottom Navigation -->
+<!-- Original Bottom Navigation Bar -->
 <nav class="bottom-nav">
- <div class="nav-item active" onclick="setActiveNav(this);window.scrollTo({top:0,behavior:'smooth'})">
-  <span class="icon-text">🏪</span>
-  <span>Market</span>
- </div>
- <div class="nav-item" onclick="setActiveNav(this);showDeals()">
-  <span class="icon-text">💬</span>
-  <span>Chat</span>
- </div>
- <div class="nav-item" onclick="setActiveNav(this);openAdmin()">
-  <span class="icon-text">🛡️</span>
-  <span>Admin</span>
- </div>
- <div class="nav-item" onclick="setActiveNav(this);showDeals()">
-  <span class="icon-text">📊</span>
-  <span>Orders</span>
- </div>
- <div class="nav-item" onclick="setActiveNav(this);openProfile()">
-  <span class="icon-text">👤</span>
-  <span>Profile</span>
- </div>
+ <div class="nav-item active" onclick="setActiveNav(this);window.scrollTo({top:0,behavior:'smooth'})">🏪 Market</div>
+ <div class="nav-item" onclick="setActiveNav(this);showDeals()">💬 Chat</div>
+ <div class="nav-item" onclick="setActiveNav(this);openAdmin()">🛡️ Admin</div>
+ <div class="nav-item" onclick="setActiveNav(this);showDeals()">📊 Orders</div>
+ <div class="nav-item" onclick="setActiveNav(this);openProfile()">👤 Profile</div>
 </nav>
 
 <script>
@@ -393,4 +365,15 @@ function renderAdmin(){
   <div class="title">${esc(d.item)}</div>
   <div class="meta">Buyer: ${esc(d.buyer)}</div>
   <div class="meta">Seller: ${esc(d.seller)}</div>
-  <div class="meta">Quantity: ${Number(d
+  <div class="meta">Quantity: ${Number(d.qty).toLocaleString()} · Price: Rs ${Number(d.price).toLocaleString()}</div>
+  <span class="deal-status">${esc(d.status)}</span>
+  <div class="admin-actions">
+   <button onclick="setDeal('${d.id}','Buyer + Seller Connected')">Connect</button>
+   <button onclick="setDeal('${d.id}','In Progress')">In Progress</button>
+   <button onclick="setDeal('${d.id}','Complete')">Complete</button>
+  </div>
+ </div>`).join('');
+}
+function setDeal(id,status){
+ const d=deals.find(x=>x.id===id);if(!d)return;
+ d.status=status;save();renderAdmin();toast('Deal status: 
