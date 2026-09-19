@@ -23,7 +23,7 @@ button{cursor:pointer}
 .sidebar{position:fixed;z-index:1001;top:0;left:-290px;width:280px;height:100%;background:#110d1d;border-right:1px solid var(--line);transition:.3s;padding-top:18px;box-shadow:8px 0 30px #000}
 .sidebar.open{left:0}
 .close-btn{position:absolute;right:16px;top:10px;font-size:27px;color:#aaa}
-.profile-section{text-align:center;padding:25px 15px 18px;border-bottom:1px solid var(--line)}
+.profile-section{text-align:center;padding:25px 15px 18px;border-bottom:1px solid var(--line);cursor:pointer}
 .profile-img{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;margin:auto auto 9px;font-size:25px}
 .profile-name{font-weight:700}.profile-email{font-size:11px;color:var(--muted);margin-top:3px}
 .sidebar a{display:block;color:#ddd;text-decoration:none;padding:14px 20px;border-bottom:1px solid #1d1730;font-size:14px}
@@ -67,10 +67,14 @@ input:focus,select:focus{border-color:#7650e8}
 .admin-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .admin-actions button{font-size:10px;padding:7px 9px;border-radius:8px;border:1px solid #40336d;background:#211a38;color:#fff}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:linear-gradient(180deg,#0d0a16f5,#07060bf8);border-top:1px solid #292047;display:flex;justify-content:space-around;padding:9px 0 10px;z-index:900;backdrop-filter:blur(12px)}
-.nav-item{color:#8f8a9e;font-size:10px;text-align:center}.nav-item div:first-child{font-size:17px;margin-bottom:2px}.nav-item.active{color:#9d80ff}
+.nav-item{color:#8f8a9e;font-size:10px;text-align:center;cursor:pointer}.nav-item div:first-child{font-size:17px;margin-bottom:2px}.nav-item.active{color:#9d80ff}
 .toast{position:fixed;z-index:3000;left:50%;bottom:75px;transform:translateX(-50%) translateY(20px);background:#20173a;border:1px solid #49357d;padding:10px 14px;border-radius:10px;font-size:11px;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .hidden{display:none!important}
+
+/* Section Switching Styling */
+.page-section{display:none}
+.page-section.active{display:block}
 </style>
 </head>
 <body>
@@ -83,45 +87,70 @@ input:focus,select:focus{border-color:#7650e8}
 
 <aside id="sidebar" class="sidebar">
  <button class="close-btn" onclick="closeNav()">×</button>
- <div class="profile-section">
+ <div class="profile-section" onclick="showSection('profileView');closeNav()">
   <div class="profile-img">👑</div>
-  <div class="profile-name">User Profile</div>
-  <div class="profile-email">Marketplace User</div>
+  <div class="profile-name" id="sbProfileName">User Profile</div>
+  <div class="profile-email" id="sbProfileUser">@username</div>
  </div>
- <a href="#" onclick="closeNav()">🏪 Market</a>
+ <a href="#" onclick="showSection('marketView');closeNav()">🏪 Market</a>
  <a href="#" onclick="openSell();closeNav()">➕ Sell / Post Listing</a>
  <a href="#" onclick="showDeals();closeNav()">📊 My Deals</a>
  <a href="#" onclick="openAdmin();closeNav()">🛡️ Admin Panel</a>
- <a href="#" onclick="toast('Settings coming soon')">⚙️ Settings</a>
+ <a href="#" onclick="showSection('profileView');closeNav()">👤 My Profile</a>
 </aside>
 <div id="overlay" class="overlay" onclick="closeNav()"></div>
 
-<section class="balance">
- <div><div class="balance-title">Total Balance (PKR)</div><div class="balance-amount">Rs 0</div></div>
- <button class="btn" onclick="toast('Add Funds can be connected later')">+ Add Funds</button>
-</section>
+<!-- MARKET VIEW -->
+<div id="marketView" class="page-section active">
+ <section class="balance">
+  <div><div class="balance-title">Total Balance (PKR)</div><div class="balance-amount">Rs 0</div></div>
+  <button class="btn" onclick="toast('Add Funds can be connected later')">+ Add Funds</button>
+ </section>
 
-<div class="action-row">
- <button class="btn dark" onclick="toast('Alerts enabled for new deals')">🔔 Alert Me</button>
- <button id="onlineToggle" class="toggle online" onclick="toggleOnline()"><span class="dot"></span><span>Online</span></button>
+ <div class="action-row">
+  <button class="btn dark" onclick="toast('Alerts enabled for new deals')">🔔 Alert Me</button>
+  <button id="onlineToggle" class="toggle online" onclick="toggleOnline()"><span class="dot"></span><span>Online</span></button>
+ </div>
+
+ <div class="action-row">
+  <button class="btn dark" onclick="toast('Cash exchange option selected')">✨ Cash Exchange</button>
+  <button class="btn dark" onclick="toast('Filters can be added here')">⚙️ Filters</button>
+ </div>
+
+ <button class="btn full" onclick="openSell()">＋ Post Listing</button>
+
+ <div class="categories">
+  <button class="chip active" data-cat="All" onclick="filterCat('All',this)">All</button>
+  <button class="chip" data-cat="Rank Push" onclick="filterCat('Rank Push',this)">📦 Rank Push</button>
+  <button class="chip" data-cat="UC" onclick="filterCat('UC',this)">🪙 UC</button>
+  <button class="chip" data-cat="Popularity" onclick="filterCat('Popularity',this)">📈 Popularity</button>
+ </div>
+
+ <div id="count" class="count">0 listings</div>
+ <div id="listings"></div>
 </div>
 
-<div class="action-row">
- <button class="btn dark" onclick="toast('Cash exchange option selected')">✨ Cash Exchange</button>
- <button class="btn dark" onclick="toast('Filters can be added here')">⚙️ Filters</button>
+<!-- PROFILE VIEW -->
+<div id="profileView" class="page-section">
+ <div class="card" style="text-align:center;padding:25px 15px;">
+  <div class="profile-img" style="width:75px;height:75px;font-size:32px;margin:0 auto 12px;">👑</div>
+  <h2 id="profTitleName">User Profile</h2>
+  <p id="profTitleUser" style="color:var(--muted);font-size:12px;margin-top:3px;">@username</p>
+ </div>
+
+ <div class="card">
+  <div class="title" style="margin-bottom:12px;">Edit Profile</div>
+  <label>Full Name</label>
+  <input id="inputName" placeholder="Enter Full Name">
+  <label>Username</label>
+  <input id="inputUser" placeholder="Enter Username">
+  <label>Email Address</label>
+  <input id="inputEmail" type="email" placeholder="Enter Email">
+  <label>Phone Number</label>
+  <input id="inputPhone" type="tel" placeholder="Enter Phone Number">
+  <button class="btn full" onclick="saveProfile()" style="margin-top:18px;">Save Profile</button>
+ </div>
 </div>
-
-<button class="btn full" onclick="openSell()">＋ Post Listing</button>
-
-<div class="categories">
- <button class="chip active" data-cat="All" onclick="filterCat('All',this)">All</button>
- <button class="chip" data-cat="Rank Push" onclick="filterCat('Rank Push',this)">📦 Rank Push</button>
- <button class="chip" data-cat="UC" onclick="filterCat('UC',this)">🪙 UC</button>
- <button class="chip" data-cat="Popularity" onclick="filterCat('Popularity',this)">📈 Popularity</button>
-</div>
-
-<div id="count" class="count">0 listings</div>
-<div id="listings"></div>
 
 <!-- Sell Modal -->
 <div id="sellModal" class="modal">
@@ -174,17 +203,18 @@ input:focus,select:focus{border-color:#7650e8}
 <div id="toast" class="toast"></div>
 
 <nav class="bottom-nav">
- <div class="nav-item active" onclick="window.scrollTo({top:0,behavior:'smooth'})"><div>🏪</div>Market</div>
- <div class="nav-item" onclick="showDeals()"><div>💬</div>Chat</div>
- <div class="nav-item" onclick="openAdmin()"><div>🛡️</div>Admin</div>
- <div class="nav-item" onclick="showDeals()"><div>📊</div>Orders</div>
- <div class="nav-item" onclick="toast('Profile section')"><div>👤</div>Me</div>
+ <div class="nav-item active" onclick="showSection('marketView');setActiveNav(this);"><div>🏪</div>Market</div>
+ <div class="nav-item" onclick="showDeals();setActiveNav(this);"><div>💬</div>Chat</div>
+ <div class="nav-item" onclick="openAdmin();setActiveNav(this);"><div>🛡️</div>Admin</div>
+ <div class="nav-item" onclick="showDeals();setActiveNav(this);"><div>📊</div>Orders</div>
+ <div class="nav-item" onclick="showSection('profileView');setActiveNav(this);"><div>👤</div>Me</div>
 </nav>
 
 <script>
-const KEY_LIST='okara_pubg_listings_v1', KEY_DEALS='okara_pubg_deals_v1';
+const KEY_LIST='okara_pubg_listings_v1', KEY_DEALS='okara_pubg_deals_v1', KEY_USER='okara_pubg_user_v1';
 let listings=JSON.parse(localStorage.getItem(KEY_LIST)||'null');
 let deals=JSON.parse(localStorage.getItem(KEY_DEALS)||'[]');
+let user=JSON.parse(localStorage.getItem(KEY_USER)||'{"name":"User Profile","username":"user123","email":"","phone":""}');
 let selectedListing=null, currentCategory='All';
 
 if(!listings){
@@ -198,7 +228,41 @@ if(!listings){
 function save(){
  localStorage.setItem(KEY_LIST,JSON.stringify(listings));
  localStorage.setItem(KEY_DEALS,JSON.stringify(deals));
+ localStorage.setItem(KEY_USER,JSON.stringify(user));
 }
+
+function loadProfile(){
+ document.getElementById('sbProfileName').textContent = user.name || 'User Profile';
+ document.getElementById('sbProfileUser').textContent = '@' + (user.username || 'username');
+ document.getElementById('profTitleName').textContent = user.name || 'User Profile';
+ document.getElementById('profTitleUser').textContent = '@' + (user.username || 'username');
+ document.getElementById('inputName').value = user.name || '';
+ document.getElementById('inputUser').value = user.username || '';
+ document.getElementById('inputEmail').value = user.email || '';
+ document.getElementById('inputPhone').value = user.phone || '';
+}
+
+function saveProfile(){
+ user.name = document.getElementById('inputName').value.trim() || 'User Profile';
+ user.username = document.getElementById('inputUser').value.trim() || 'username';
+ user.email = document.getElementById('inputEmail').value.trim();
+ user.phone = document.getElementById('inputPhone').value.trim();
+ save();
+ loadProfile();
+ toast('Profile updated!');
+}
+
+function showSection(id){
+ document.querySelectorAll('.page-section').forEach(sec=>sec.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function setActiveNav(el){
+ document.querySelectorAll('.bottom-nav .nav-item').forEach(item=>item.classList.remove('active'));
+ el.classList.add('active');
+}
+
 function openNav(){sidebar.classList.add('open');overlay.style.display='block'}
 function closeNav(){sidebar.classList.remove('open');overlay.style.display='none'}
 function openSell(){document.getElementById('sellModal').classList.add('show')}
@@ -245,7 +309,7 @@ function postListing(){
  const qty=Number(document.getElementById('itemQty').value);
  const price=Number(document.getElementById('itemPrice').value);
  if(!name||qty<1||price<1){toast('Item Name, Quantity aur Price complete karein');return}
- listings.push({id:Date.now(),name,cat,qty,price,seller:'Seller',created:Date.now()});
+ listings.push({id:Date.now(),name,cat,qty,price,seller:user.name||'Seller',created:Date.now()});
  save();render();closeModal('sellModal');
  document.getElementById('itemName').value='';document.getElementById('itemQty').value='';document.getElementById('itemPrice').value='';
  toast('Listing successfully post ho gayi');
@@ -263,7 +327,7 @@ function startBuy(id){
 }
 function confirmBuy(){
  if(!selectedListing)return;
- const deal={id:'D'+Date.now(),listingId:selectedListing.id,item:selectedListing.name,qty:selectedListing.qty,price:selectedListing.price,seller:selectedListing.seller,buyer:'Buyer',status:'Waiting for Admin',created:Date.now()};
+ const deal={id:'D'+Date.now(),listingId:selectedListing.id,item:selectedListing.name,qty:selectedListing.qty,price:selectedListing.price,seller:selectedListing.seller,buyer:user.name||'Buyer',status:'Waiting for Admin',created:Date.now()};
  deals.push(deal);save();closeModal('buyModal');selectedListing=null;showDeals();toast('Deal Admin ko bhej di gayi');
 }
 function showDeals(){
@@ -302,11 +366,10 @@ function setDeal(id,status){
  const d=deals.find(x=>x.id===id);if(!d)return;
  d.status=status;save();renderAdmin();toast('Deal status: '+status);
 }
+
+loadProfile();
 render();
 </script>
 </body>
-</html>'''
-path="/mnt/data/okara_aelemi_pubg_hub.html"
-with open(path,"w",encoding="utf-8") as f:
-    f.write(html)
-print(path)
+   </html>
+   
